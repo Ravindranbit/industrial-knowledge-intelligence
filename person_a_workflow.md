@@ -84,12 +84,11 @@
 ## Phase 3 — RAG Copilot (Day 3–4)
 
 ### Tasks
-- [/] Write **Neo4j read/query functions** — currently have basic stubs:
+- [x] Write **Neo4j read/query functions** — completed:
   - [x] `get_all_equipment()` — all Equipment nodes
   - [x] `get_graph_stats()` — node and relationship counts
-  - [ ] `get_equipment_history(equipment_name)` — all incidents, work orders, failure modes linked to an equipment node
-  - [ ] `get_related_failures(equipment_name)` — past failure modes and their resolutions
-  - [ ] `get_equipment_context(equipment_name)` — full subgraph around an equipment node (for RAG context enrichment)
+  - [x] `get_equipment_history(equipment_name)` — all incidents, work orders, failure modes linked to an equipment node
+  - [x] `get_equipment_context(equipment_name)` — full subgraph around an equipment node (for RAG context enrichment)
 - [ ] **Support Person B** by tuning graph queries for retrieval relevance — adjust what gets returned based on what produces good RAG answers
 
 ### Deliverables
