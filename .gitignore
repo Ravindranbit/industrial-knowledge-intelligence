@@ -1,0 +1,45 @@
+# ============================================================
+# .gitignore — Data Center Cooling Knowledge System
+# ============================================================
+
+# --- Environment & secrets ---
+.env
+*.env.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# --- Node.js (frontend) ---
+node_modules/
+.next/
+out/
+.vercel
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Data (large files — track with Git LFS or exclude) ---
+data/raw/*.pdf
+data/raw/*.png
+data/raw/*.jpg
+
+# --- Logs ---
+*.log

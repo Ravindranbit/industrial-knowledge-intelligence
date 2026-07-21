@@ -1,0 +1,4 @@
+# /data/eval/
+# Place evaluation ground-truth data here:
+# - entity_labels.json  — 15-20 ground-truth entity labels
+# - qa_pairs.json       — 15-20 Q&A pairs with correct answers

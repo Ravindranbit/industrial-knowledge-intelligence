@@ -1,0 +1,5 @@
+# /data/synthetic/
+# Place generated synthetic documents here:
+# - Maintenance tickets (15-30)
+# - PM (preventive maintenance) reports (10-15)
+# - Incident/near-miss logs (5-10)

@@ -1,0 +1,29 @@
+# ============================================================
+# Data Center Cooling Knowledge System — Backend Dependencies
+# ============================================================
+
+# --- Web framework ---
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
+
+# --- Configuration ---
+pydantic-settings==2.9.1
+
+# --- Neo4j ---
+neo4j==5.28.1
+
+# --- Postgres + pgvector ---
+sqlalchemy==2.0.41
+asyncpg==0.30.0
+pgvector==0.4.0
+psycopg2-binary==2.9.10
+
+# --- Claude API ---
+anthropic==0.52.0
+
+# --- Embeddings (for pgvector) ---
+sentence-transformers==4.1.0
+
+# --- Utilities ---
+python-dotenv==1.1.0
