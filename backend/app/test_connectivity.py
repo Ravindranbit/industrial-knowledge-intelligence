@@ -45,7 +45,7 @@ def test_config():
         print(f"✓ Config: Loaded successfully")
         print(f"  NEO4J_URI = {settings.NEO4J_URI[:30]}...")
         print(f"  POSTGRES_URL = {settings.POSTGRES_URL[:30]}...")
-        print(f"  ANTHROPIC_API_KEY = {'set' if settings.ANTHROPIC_API_KEY else 'NOT SET'}")
+        print(f"  GROQ_API_KEY = {'set' if settings.GROQ_API_KEY else 'NOT SET'}")
         return True
     except Exception as e:
         print(f"✗ Config: Failed to load — {e}")

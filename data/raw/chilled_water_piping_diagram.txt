@@ -1,0 +1,258 @@
+================================================================================
+Data Center Chilled Water Cooling System — Piping Loop Diagram
+================================================================================
+
+System Type:  Chilled Water with CRAH Units (Primary-Secondary Configuration)
+Redundancy:   N+1 Cooling
+Facility:     Tier III Data Center — 500kW IT Load
+
+NOTE: This is a text-based schematic representation of a typical data center
+cooling piping loop. The diagram shows the major components and flow paths
+in a chilled water cooling system.
+
+================================================================================
+SYSTEM OVERVIEW — COMPONENT LAYOUT
+================================================================================
+
+                          OUTDOOR / ROOFTOP
+    ┌─────────────────────────────────────────────────────────┐
+    │                                                         │
+    │    ┌──────────────┐         ┌──────────────┐           │
+    │    │ COOLING      │         │ COOLING      │           │
+    │    │ TOWER #1     │         │ TOWER #2     │           │
+    │    │ (500 ton)    │         │ (500 ton)    │           │
+    │    │              │         │ (Standby)    │           │
+    │    └──────┬───────┘         └──────┬───────┘           │
+    │           │                        │                    │
+    │    ┌──────▼────────────────────────▼───────┐           │
+    │    │     CONDENSER WATER HEADER             │           │
+    │    │     (Supply: 85°F / 29°C)              │           │
+    │    │     (Return: 95°F / 35°C)              │           │
+    │    └──────────────────┬────────────────────┘           │
+    │                       │                                 │
+    └───────────────────────┼─────────────────────────────────┘
+                            │
+    ========================│==========================================
+    MECHANICAL ROOM         │
+    ┌───────────────────────┼─────────────────────────────────┐
+    │                       │                                  │
+    │    ┌──────────────────▼──────────────────────┐          │
+    │    │     CONDENSER WATER PUMPS                │          │
+    │    │     CWP-1 (50 HP)  CWP-2 (50 HP, N+1)  │          │
+    │    └──────────────────┬──────────────────────┘          │
+    │                       │                                  │
+    │    ┌──────────────────▼──────────────────────┐          │
+    │    │                CHILLERS                  │          │
+    │    │                                          │          │
+    │    │  ┌────────────┐    ┌────────────┐       │          │
+    │    │  │ CHILLER #1 │    │ CHILLER #2 │       │          │
+    │    │  │ (300 ton)  │    │ (300 ton)  │       │          │
+    │    │  │ Water-Cool │    │ (N+1 Stdby)│       │          │
+    │    │  │            │    │            │       │          │
+    │    │  │ Evaporator │    │ Evaporator │       │          │
+    │    │  │ Condenser  │    │ Condenser  │       │          │
+    │    │  │ Compressor │    │ Compressor │       │          │
+    │    │  │ Exp. Valve │    │ Exp. Valve │       │          │
+    │    │  └─────┬──────┘    └─────┬──────┘       │          │
+    │    │        │                 │               │          │
+    │    └────────┼─────────────────┼──────────────┘          │
+    │             │                 │                           │
+    │    ┌────────▼─────────────────▼──────────────┐          │
+    │    │     PRIMARY CHILLED WATER PUMPS          │          │
+    │    │     PCHWP-1 (30 HP)  PCHWP-2 (30 HP)    │          │
+    │    └──────────────────┬──────────────────────┘          │
+    │                       │                                  │
+    │    ┌──────────────────▼──────────────────────┐          │
+    │    │          COMMON PIPE / DECOUPLER         │          │
+    │    │    (Balances primary and secondary flow)  │          │
+    │    └──────────────────┬──────────────────────┘          │
+    │                       │                                  │
+    │    ┌──────────────────▼──────────────────────┐          │
+    │    │     SECONDARY CHILLED WATER PUMPS        │          │
+    │    │     SCHWP-1 (25 HP)  SCHWP-2 (25 HP)    │          │
+    │    │     Variable Speed Drive (VSD)            │          │
+    │    └──────────────────┬──────────────────────┘          │
+    │                       │                                  │
+    │    ┌──────────────────▼──────────────────────┐          │
+    │    │         ANCILLARY COMPONENTS             │          │
+    │    │                                          │          │
+    │    │  • Air Separator (removes dissolved gas)  │          │
+    │    │  • Expansion Tank (50 gallon, diaphragm) │          │
+    │    │  • Chemical Treatment Pot (biocide/scale) │          │
+    │    │  • Strainers (Y-type, 20 mesh)           │          │
+    │    │  • Isolation Valves (butterfly, flanged)  │          │
+    │    │  • Balance Valves (at each CRAH branch)   │          │
+    │    │  • Temperature Sensors (supply/return)    │          │
+    │    │  • Pressure Sensors (differential)        │          │
+    │    │  • Flow Meters (ultrasonic, non-invasive) │          │
+    │    └──────────────────┬──────────────────────┘          │
+    │                       │                                  │
+    └───────────────────────┼──────────────────────────────────┘
+                            │
+    ========================│==========================================
+    DATA HALL               │
+    ┌───────────────────────┼──────────────────────────────────┐
+    │                       │                                   │
+    │    ┌──────────────────▼──────────────────────┐           │
+    │    │     CHILLED WATER SUPPLY HEADER          │           │
+    │    │     (Supply: 44°F / 7°C)                 │           │
+    │    └──┬──────────┬──────────┬──────────┬─────┘           │
+    │       │          │          │          │                   │
+    │    ┌──▼───┐   ┌──▼───┐  ┌──▼───┐  ┌──▼───┐             │
+    │    │CRAH-1│   │CRAH-2│  │CRAH-3│  │CRAH-4│             │
+    │    │60 kW │   │60 kW │  │60 kW │  │60 kW │             │
+    │    │      │   │      │  │      │  │(N+1) │             │
+    │    │ Coil │   │ Coil │  │ Coil │  │ Coil │             │
+    │    │ Fan  │   │ Fan  │  │ Fan  │  │ Fan  │             │
+    │    │ Valve│   │ Valve│  │ Valve│  │ Valve│             │
+    │    │ Ctrl │   │ Ctrl │  │ Ctrl │  │ Ctrl │             │
+    │    └──┬───┘   └──┬───┘  └──┬───┘  └──┬───┘             │
+    │       │          │          │          │                   │
+    │    ┌──▼──────────▼──────────▼──────────▼─────┐           │
+    │    │     CHILLED WATER RETURN HEADER          │           │
+    │    │     (Return: 58°F / 14°C)                │           │
+    │    └──────────────────┬──────────────────────┘           │
+    │                       │                                   │
+    │                       │  ΔT = 14°F / 7°C                 │
+    │                       │  (Design condition)               │
+    │                       │                                   │
+    │    ┌──────────────────┼──────────────────────────────┐   │
+    │    │                  │    DATA HALL LAYOUT           │   │
+    │    │                  │                               │   │
+    │    │   COLD    HOT    COLD    HOT    COLD    HOT     │   │
+    │    │   AISLE   AISLE  AISLE   AISLE  AISLE   AISLE   │   │
+    │    │    ▼       ▲      ▼       ▲      ▼       ▲      │   │
+    │    │   ┌─┐    ┌─┐    ┌─┐    ┌─┐    ┌─┐    ┌─┐      │   │
+    │    │   │R│    │R│    │R│    │R│    │R│    │R│      │   │
+    │    │   │A│    │A│    │A│    │A│    │A│    │A│      │   │
+    │    │   │C│    │C│    │C│    │C│    │C│    │C│      │   │
+    │    │   │K│    │K│    │K│    │K│    │K│    │K│      │   │
+    │    │   └─┘    └─┘    └─┘    └─┘    └─┘    └─┘      │   │
+    │    │                                                 │   │
+    │    │   CRAH units blow cold air UP through           │   │
+    │    │   raised floor tiles into COLD aisles.          │   │
+    │    │   Hot exhaust rises into HOT aisles             │   │
+    │    │   and returns to CRAH unit intakes.             │   │
+    │    └─────────────────────────────────────────────────┘   │
+    │                                                           │
+    └───────────────────────────────────────────────────────────┘
+
+================================================================================
+FLOW PATH SUMMARY
+================================================================================
+
+PRIMARY LOOP (Chiller Side):
+  Chiller Evaporator → Primary CHW Pump → Common Pipe → Return to Chiller
+  
+  Flow Rate:     ~570 GPM per chiller (at design ΔT)
+  Pipe Size:     6" (supply and return headers)
+  Pipe Material: Schedule 40 carbon steel, welded joints
+  Insulation:    1.5" closed-cell foam with vapor barrier
+
+SECONDARY LOOP (CRAH Side):
+  Common Pipe → Secondary CHW Pump → Supply Header → CRAH Coils →
+  Return Header → Common Pipe
+  
+  Flow Rate:     ~430 GPM total (variable, VSD controlled)
+  Branch Size:   2.5" per CRAH unit
+  Control Valve: 2-way modulating (Belimo, 0-10V actuator)
+  ΔT Design:     14°F / 7°C (44°F supply, 58°F return)
+
+CONDENSER LOOP (Heat Rejection):
+  Chiller Condenser → CW Pump → Cooling Tower → Return to Condenser
+  
+  Flow Rate:     ~750 GPM per tower
+  Pipe Size:     8" (supply and return)
+  Design ΔT:     10°F (85°F supply, 95°F return)
+
+================================================================================
+DESIGN PARAMETERS
+================================================================================
+
+┌────────────────────────────────────┬──────────────────────────┐
+│ Parameter                          │ Value                    │
+├────────────────────────────────────┼──────────────────────────┤
+│ Total IT Load                      │ 500 kW                   │
+│ Total Cooling Capacity (installed) │ 240 kW (4 × 60 kW CRAH) │
+│ Effective Cooling (N+1)            │ 180 kW (3 active CRAHs)  │
+│ Chiller Capacity                   │ 300 tons × 2 chillers    │
+│ Chilled Water Supply Temp          │ 44°F / 7°C               │
+│ Chilled Water Return Temp          │ 58°F / 14°C              │
+│ Chilled Water ΔT                   │ 14°F / 7°C               │
+│ Condenser Water Supply Temp        │ 85°F / 29°C              │
+│ Condenser Water Return Temp        │ 95°F / 35°C              │
+│ Cooling Tower Approach             │ 7°F / 4°C                │
+│ Raised Floor Height                │ 24" / 600 mm             │
+│ Cold Aisle Temperature (target)    │ 72°F / 22°C              │
+│ Hot Aisle Temperature (expected)   │ 95-104°F / 35-40°C       │
+│ Redundancy                         │ N+1 (CRAH and Chiller)   │
+│ PUE Target                         │ 1.4                      │
+└────────────────────────────────────┴──────────────────────────┘
+
+================================================================================
+MONITORING POINTS
+================================================================================
+
+Critical sensors for BMS (Building Management System) integration:
+
+  CHILLED WATER SYSTEM:
+    • CHW supply temperature (at header)
+    • CHW return temperature (at header)
+    • CHW differential pressure (across header)
+    • CHW flow rate (at each pump)
+    • Chiller status (run/stop/fault per chiller)
+    • Chiller kW consumption
+    
+  CONDENSER WATER SYSTEM:
+    • CW supply temperature
+    • CW return temperature
+    • Cooling tower fan speed
+    • Cooling tower basin level
+    • Outdoor wet-bulb temperature
+    
+  CRAH UNITS (per unit):
+    • Supply air temperature
+    • Return air temperature
+    • Supply air humidity
+    • Fan speed (%)
+    • Chilled water valve position (%)
+    • Filter differential pressure
+    • Unit status (run/stop/fault)
+    • Power consumption (kW)
+    
+  ROOM CONDITIONS:
+    • Cold aisle temperature (per row, at 3 heights)
+    • Hot aisle temperature (per row)
+    • Under-floor pressure
+    • Room humidity (multiple points)
+
+================================================================================
+MAINTENANCE REQUIREMENTS (PIPING SYSTEM)
+================================================================================
+
+MONTHLY:
+  □ Check glycol concentration (if applicable)
+  □ Verify system pressure (normal: 15-30 PSI)
+  □ Inspect expansion tank pressure (pre-charge: 12 PSI)
+  □ Check chemical treatment levels
+  □ Inspect for leaks at valve stems and pump seals
+
+QUARTERLY:
+  □ Clean strainers
+  □ Check valve operation (isolation and control valves)
+  □ Verify flow rates at each CRAH branch
+  □ Inspect pipe insulation for damage/condensation
+  □ Test safety relief valves
+  □ Flush condensate drains
+
+ANNUALLY:
+  □ Full water quality analysis (pH, TDS, bacteria, corrosion coupons)
+  □ Vibration analysis on all pumps
+  □ Thermographic survey of all piping connections
+  □ Recalibrate all temperature and pressure sensors
+  □ Inspect cooling tower fill media and basin
+  □ Clean and inspect all heat exchangers
+
+================================================================================
+END OF DOCUMENT
+================================================================================

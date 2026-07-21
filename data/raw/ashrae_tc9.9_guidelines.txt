@@ -1,0 +1,191 @@
+================================================================================
+ASHRAE TC 9.9 — Thermal Guidelines for Data Processing Environments
+5th Edition (2021) — Summary of Key Standards
+================================================================================
+
+Source: ASHRAE Technical Committee 9.9 — Mission Critical Facilities, Data Centers,
+       Technology Spaces, and Electronic Equipment
+Document: "Thermal Guidelines for Data Processing Environments" (5th Edition, 2021)
+
+NOTE: This is a summary of publicly cited excerpts and widely reproduced tables
+from the ASHRAE TC9.9 guidelines. The full document is published by ASHRAE.
+
+================================================================================
+1. PURPOSE AND SCOPE
+================================================================================
+
+The ASHRAE TC 9.9 Thermal Guidelines provide the industry-standard framework for
+environmental conditions in data centers and IT equipment spaces. The guidelines
+define temperature and humidity envelopes that balance equipment reliability,
+energy efficiency, and operational flexibility.
+
+The guidelines apply to:
+- Server rooms and data halls
+- Network closets and telecom rooms
+- Any space housing IT equipment requiring environmental control
+
+All measurements refer to IT EQUIPMENT AIR INLET conditions, NOT room ambient
+temperature or return air temperature.
+
+================================================================================
+2. EQUIPMENT CLASSIFICATION
+================================================================================
+
+ASHRAE defines four primary classes for air-cooled IT equipment (A1–A4), plus
+additional classes for specialized environments. Each class has both a
+"recommended" and an "allowable" operating envelope.
+
+- Class A1: Enterprise servers, storage — most tightly controlled
+- Class A2: Volume servers, storage, personal computers, workstations
+- Class A3: Volume servers, storage designed for broader environments
+- Class A4: Point-of-sale equipment, ruggedized controllers, computers, PDUs
+
+Higher class numbers indicate broader environmental tolerance but potentially
+reduced equipment lifespan when operating at the extremes.
+
+================================================================================
+3. RECOMMENDED ENVIRONMENTAL ENVELOPE (ALL CLASSES)
+================================================================================
+
+The RECOMMENDED envelope represents conditions for long-term, continuous
+operation where IT equipment is designed to operate without measurable impact
+on performance or reliability.
+
+  Dry-Bulb Temperature:  18°C to 27°C  (64.4°F to 80.6°F)
+  Humidity:              -9°C dew point to 15°C dew point AND 60% RH maximum
+  Maximum Dew Point:     15°C
+  Minimum Dew Point:     -9°C
+
+These conditions optimize both equipment lifespan and energy efficiency. Data
+center operators should target these ranges for normal operations.
+
+================================================================================
+4. ALLOWABLE ENVIRONMENTAL RANGES BY CLASS
+================================================================================
+
+The ALLOWABLE ranges define broader conditions that equipment can tolerate for
+shorter periods. Operating consistently in the allowable range (outside
+recommended) may reduce equipment lifespan.
+
+┌───────┬──────────────────────┬────────────────────────────────────────────┐
+│ Class │ Allowable Temp (°C)  │ Allowable Humidity                        │
+├───────┼──────────────────────┼────────────────────────────────────────────┤
+│  A1   │ 15°C to 32°C         │ 8% RH to 80% RH (max dew point 17°C)     │
+│  A2   │ 10°C to 35°C         │ 8% RH to 80% RH (max dew point 21°C)     │
+│  A3   │  5°C to 40°C         │ 8% RH to 85% RH (max dew point 24°C)     │
+│  A4   │  5°C to 45°C         │ 8% RH to 90% RH (max dew point 24°C)     │
+└───────┴──────────────────────┴────────────────────────────────────────────┘
+
+Minimum Humidity (all classes): Higher of -12°C dew point OR 8% RH
+
+================================================================================
+5. ALTITUDE DE-RATING
+================================================================================
+
+Maximum allowable dry-bulb temperatures must be reduced at elevations above
+900 meters (2,953 feet):
+
+  Classes A1, A2:  De-rate 1°C per 300m above 900m
+  Class A3:        De-rate 1°C per 175m above 900m
+  Class A4:        De-rate 1°C per 125m above 900m
+
+Example: At 1,800m elevation, a Class A2 unit's maximum allowable temperature
+drops from 35°C to 32°C (3°C reduction for 900m above the 900m threshold).
+
+================================================================================
+6. RATE OF CHANGE LIMITS
+================================================================================
+
+To protect equipment from thermal shock:
+
+  IT Equipment (general):  Maximum 20°C per hour
+                          No more than 5°C change in any 15-minute period
+  
+  Tape Storage:            Maximum 5°C per hour
+
+These limits apply to both heating and cooling transients, such as during
+cooling system failures, planned maintenance, or free-cooling mode transitions.
+
+================================================================================
+7. SPECIFIC COMPLIANCE RULES FOR DATA CENTER OPERATIONS
+================================================================================
+
+Rule 1 — Temperature Monitoring
+  REQUIREMENT: Inlet air temperature to IT equipment must be monitored
+  continuously and logged at intervals no greater than 5 minutes.
+  APPLIES TO: All equipment classes (A1–A4)
+  REFERENCE: ASHRAE TC9.9 Section 4.1
+
+Rule 2 — CRAC/CRAH Coil Cleaning
+  REQUIREMENT: Cooling coils on CRAC/CRAH units must be inspected and
+  cleaned at intervals not exceeding 90 days (quarterly).
+  APPLIES TO: All precision cooling units serving A1/A2 spaces
+  REFERENCE: ASHRAE TC9.9 Section 6.2 / Equipment maintenance guidelines
+  NOTE: Dirty coils reduce cooling capacity by 10-30% and increase
+  energy consumption significantly.
+
+Rule 3 — Filter Replacement
+  REQUIREMENT: Air filters on precision cooling units must be replaced
+  when pressure drop exceeds manufacturer specifications, or at intervals
+  not exceeding 90 days, whichever comes first.
+  APPLIES TO: All CRAC/CRAH units
+  REFERENCE: ASHRAE TC9.9 Section 6.2
+
+Rule 4 — Humidity Control
+  REQUIREMENT: If humidity falls below -9°C dew point (the recommended
+  minimum), electrostatic discharge (ESD) mitigation measures must be
+  verified: ESD flooring, grounding straps, and anti-static footwear.
+  APPLIES TO: All equipment classes
+  REFERENCE: ASHRAE TC9.9 Section 4.3
+
+Rule 5 — Hot Aisle / Cold Aisle Separation
+  REQUIREMENT: Data centers should implement hot aisle/cold aisle
+  containment to prevent mixing of supply and return air. Temperature
+  differential between cold aisle inlet and hot aisle return should
+  not exceed 20°C.
+  APPLIES TO: All new installations and major retrofits
+  REFERENCE: ASHRAE TC9.9 Section 5.1
+
+Rule 6 — Annual Refrigerant Leak Testing
+  REQUIREMENT: Refrigerant-based cooling systems (DX/CRAC units) must
+  undergo leak testing annually. Refrigerant charge must be verified
+  and documented.
+  APPLIES TO: All DX cooling units
+  REFERENCE: ASHRAE Standard 15 / TC9.9 cross-reference
+
+Rule 7 — Redundancy Verification
+  REQUIREMENT: Cooling system redundancy (N+1, 2N) must be tested
+  quarterly by simulating failure of individual cooling units and
+  verifying that remaining capacity maintains conditions within
+  the recommended envelope.
+  APPLIES TO: Tier II and above facilities
+  REFERENCE: ASHRAE TC9.9 Section 7.1 / Uptime Institute Tier Standards
+
+================================================================================
+8. LIQUID COOLING GUIDELINES (H1 CLASS)
+================================================================================
+
+The 2021 edition introduced expanded liquid-cooling envelopes to address
+modern high-density and AI-driven workloads:
+
+  H1 Class (Liquid-Cooled):
+    Facility water temperature:  2°C to 45°C
+    Maximum pressure:            Varies by implementation
+    
+  This class covers direct-to-chip, immersion, and rear-door heat exchanger
+  configurations increasingly common in HPC and AI training clusters.
+
+================================================================================
+9. ENERGY EFFICIENCY CONSIDERATIONS
+================================================================================
+
+- Raising inlet temperature from 20°C to 27°C (within recommended range)
+  can reduce cooling energy consumption by up to 4% per degree
+- Free-cooling (economizer) hours increase significantly when operating
+  at the upper end of the recommended range
+- ASHRAE recommends a minimum PUE (Power Usage Effectiveness) target of 1.4
+  for new data centers, with best-in-class facilities achieving 1.1–1.2
+
+================================================================================
+END OF DOCUMENT
+================================================================================

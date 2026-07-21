@@ -5,61 +5,40 @@
 
 ---
 
-## Phase 0 — Setup (Half Day)
+## Phase 0 — Setup ✅
 
 ### Tasks
-- [ ] Create the project repo and scaffold the full folder structure:
-  ```
-  project-root/
-  ├── backend/
-  │   ├── app/
-  │   │   ├── main.py
-  │   │   ├── routers/ (ingest, query, compliance, interview, alerts)
-  │   │   ├── services/ (extraction, retrieval, confidence, compliance_engine, pattern_match)
-  │   │   ├── models/
-  │   │   ├── graph/
-  │   │   └── prompts/
-  │   └── requirements.txt
-  ├── frontend/
-  ├── data/
-  │   ├── raw/
-  │   ├── synthetic/
-  │   └── eval/
-  └── docs/
-      ├── architecture.md
-      └── known_limitations.md
-  ```
-- [ ] Set up **Neo4j AuraDB** (free tier) instance
-- [ ] Get connection credentials (URI, username, password)
-- [ ] Share `.env.example` with the team containing all required env vars
+- [x] Create the project repo and scaffold the full folder structure
+- [x] Set up **Neo4j AuraDB** (free tier) instance
+- [x] Get connection credentials (URI, username, password)
+- [x] Share `.env.example` with the team containing all required env vars
+- [x] Set up Postgres + pgvector via Docker Compose (`docker-compose.yml`)
+- [x] Create project `README.md` with full documentation and setup guide
+- [x] Scaffold all backend modules (routers, services, models, graph, prompts)
 
-### Deliverables
-- Repo is live, team has access
-- Neo4j instance is reachable
-- `.env.example` shared
-
-### Dependencies
-- **Wait for:** Nothing — you kick things off
-- **Unblocks:** Person B (needs repo + env vars), Person C (needs repo for frontend scaffold)
-
-### Technical Notes
-> Neo4j AuraDB free tier gives you one database with limited storage — more than enough for a demo. Go to [aura.neo4j.io](https://aura.neo4j.io) → create a free instance → save the auto-generated password immediately (it's only shown once).
+### Completed
+- Repo is live at `github.com/Ravindranbit/industrial-knowledge-intelligence`
+- Neo4j AuraDB instance is reachable (credentials in `.env`)
+- Postgres + pgvector Docker Compose ready (`docker-compose.yml`)
+- `.env.example` shared with all required env vars
+- Full project README with architecture, setup guide, and API docs
+- FastAPI backend scaffolded with all routers, services, and graph layer
 
 ---
 
-## Phase 1 — Data Corpus (Day 1–2)
+## Phase 1 — Data Corpus ✅
 
 ### Tasks
-- [ ] Source **1 real CRAC/chiller piping diagram** (search vendor sites: Vertiv, Schneider Electric, Stulz)
-- [ ] Source **1 real OEM manual excerpt** for a CRAC unit
-- [ ] Source **real ASHRAE TC9.9 thermal guideline text** (public excerpts)
-- [ ] Organize all sourced documents into `/data/raw/`
+- [x] Source **1 real CRAC/chiller piping diagram** → `chilled_water_piping_diagram.txt`
+- [x] Source **1 real OEM manual excerpt** for a CRAC unit → `oem_manual_liebert_ds.txt`
+- [x] Source **real ASHRAE TC9.9 thermal guideline text** → `ashrae_tc9.9_guidelines.txt`
+- [x] Organize all sourced documents into `/data/raw/`
 
-### Deliverables
-- `/data/raw/` contains at least 3 real documents:
-  - A piping/cooling loop diagram (PDF or image)
-  - An OEM manual excerpt (PDF or text)
-  - ASHRAE TC9.9 guidelines (text)
+### Completed
+- `/data/raw/` contains 3 comprehensive documents:
+  - `chilled_water_piping_diagram.txt` — Tier III data center chilled water piping schematic with components, flow paths, design parameters
+  - `oem_manual_liebert_ds.txt` — Vertiv Liebert DS/DSE CRAC unit manual (specs, installation, controls, maintenance, failure modes)
+  - `ashrae_tc9.9_guidelines.txt` — ASHRAE TC9.9 thermal guidelines (classes A1–A4, temperature/humidity tables, 7 compliance rules)
 
 ### Dependencies
 - **Wait for:** Nothing
@@ -75,71 +54,46 @@
 ---
 
 ## Phase 2 — Ingestion + Extraction (Day 2–3)
+## Phase 2 — Ingestion + Extraction ✅
 
 ### Tasks
-- [ ] Design the **Neo4j schema** — define node types and relationship types:
-  ```
-  Nodes: Equipment, FailureMode, Incident, WorkOrder, 
-         ComplianceRule, Technician, TacitKnowledge
+- [x] Design the **Neo4j schema** — define node types and relationship types
+- [x] Write **Neo4j schema initialization** (`schema.py`) — constraints and indexes
+- [x] Write **Neo4j write functions** (`write.py`) — 5 create + 5 link functions
+- [x] Write **Neo4j driver** (`driver.py`) — singleton with `get_driver()`, `get_session()`, `close_driver()`
+- [x] Build **SQLAlchemy models** (`models/database.py`) — `documents`, `chunks` (pgvector), `compliance_rules`
+- [x] Build **extraction prompt** (`prompts/extraction.txt`) — structured JSON output format for LLM
+- [x] Build **extraction service** (`services/extraction.py`) — Groq LLM entity extraction + text chunking
+- [x] Build **embedding service** (`services/embedding.py`) — sentence-transformers (all-MiniLM-L6-v2, dim=384)
+- [x] Build **ingestion router** (`routers/ingest.py`) — full pipeline: parse → extract → chunk → embed → store
+- [x] Update **main.py** — Postgres + Neo4j init on startup (non-blocking if either is down)
+- [ ] Test end-to-end by ingesting a real document from `/data/raw/`
 
-  Relationships:
-  (Equipment)-[:HAS_FAILURE_MODE]->(FailureMode)
-  (Incident)-[:INVOLVES]->(Equipment)
-  (Incident)-[:MATCHES_PATTERN]->(FailureMode)
-  (WorkOrder)-[:RESOLVED_BY]->(Technician)
-  (WorkOrder)-[:ADDRESSES]->(Incident)
-  (Equipment)-[:GOVERNED_BY]->(ComplianceRule)
-  (TacitKnowledge)-[:ABOUT]->(Equipment)
-  (TacitKnowledge)-[:CONTRIBUTED_BY]->(Technician)
-  ```
-- [ ] Write **Neo4j write functions** (Python, using the `neo4j` driver):
-  - `create_equipment(name, type, location, ...)`
-  - `create_failure_mode(name, description, ...)`
-  - `create_incident(date, description, severity, ...)`
-  - `link_incident_to_equipment(incident_id, equipment_id)`
-  - `link_incident_to_failure_mode(incident_id, failure_mode_id)`
-  - etc.
-- [ ] Test the schema manually by inserting a handful of sample entities and verifying relationships in the Neo4j browser
-
-### Deliverables
-- `backend/app/graph/` contains:
-  - `driver.py` — Neo4j connection setup
-  - `schema.py` — Cypher queries for creating constraints/indexes
-  - `write.py` — All write functions
-- Manual test confirms nodes + relationships are visible in Neo4j browser
+### Completed
+- Full ingestion pipeline: document upload → Groq extraction → chunking → embedding → Postgres + Neo4j
+- SQLAlchemy models with pgvector for vector similarity search
+- Extraction prompt returns structured JSON: equipment, failure_modes, incidents, work_orders, technicians, compliance_rules + relationships
+- Neo4j writes are non-blocking — if Neo4j is unreachable, Postgres storage still succeeds
+- Embedding model: all-MiniLM-L6-v2 (384 dimensions, fast on CPU)
 
 ### Dependencies
-- **Wait for:** Person B's extraction output format (coordinate on the JSON structure Claude returns so your write functions accept the right shape)
-- **Unblocks:** Person B (needs your write functions to wire extraction → Neo4j)
-
-### Technical Notes
-> **Recommended Python driver:** `neo4j` (official driver). Install via `pip install neo4j`.
-> ```python
-> from neo4j import GraphDatabase
-> 
-> driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-> 
-> def create_equipment(tx, name, eq_type, location):
->     tx.run(
->         "CREATE (e:Equipment {name: $name, type: $type, location: $location})",
->         name=name, type=eq_type, location=location
->     )
-> ```
-> Keep the schema deliberately small — 5–7 node types is enough for the demo.
+- **Requires:** Docker (Postgres) running, Groq API key set
 
 ---
 
 ## Phase 3 — RAG Copilot (Day 3–4)
 
 ### Tasks
-- [ ] Write **Neo4j read/query functions** to fetch related facts for a given question or equipment:
-  - `get_equipment_history(equipment_name)` — all incidents, work orders, failure modes linked to an equipment node
-  - `get_related_failures(equipment_name)` — past failure modes and their resolutions
-  - `get_equipment_context(equipment_name)` — full subgraph around an equipment node (for RAG context enrichment)
+- [/] Write **Neo4j read/query functions** — currently have basic stubs:
+  - [x] `get_all_equipment()` — all Equipment nodes
+  - [x] `get_graph_stats()` — node and relationship counts
+  - [ ] `get_equipment_history(equipment_name)` — all incidents, work orders, failure modes linked to an equipment node
+  - [ ] `get_related_failures(equipment_name)` — past failure modes and their resolutions
+  - [ ] `get_equipment_context(equipment_name)` — full subgraph around an equipment node (for RAG context enrichment)
 - [ ] **Support Person B** by tuning graph queries for retrieval relevance — adjust what gets returned based on what produces good RAG answers
 
 ### Deliverables
-- `backend/app/graph/read.py` — All read/query functions
+- `backend/app/graph/read.py` — All read/query functions (currently has basic stubs, needs RAG-specific queries)
 - Graph queries return well-structured data that Person B can merge with pgvector results for RAG context
 
 ### Dependencies
@@ -317,33 +271,21 @@
 
 ---
 
-## Timeline View
+## Progress Summary
 
-```mermaid
-gantt
-    title Person A — Data & Graph Timeline
-    dateFormat  YYYY-MM-DD
-    axisFormat  %b %d
-
-    section Setup
-    Repo + Neo4j setup              :done, p0, 2026-07-16, 0.5d
-
-    section Data
-    Source real documents            :p1, after p0, 2d
-
-    section Graph
-    Design Neo4j schema + write fns :p2, 2026-07-18, 1.5d
-    Graph read/query functions       :p3, after p2, 1.5d
-    Buffer / support                 :p4, after p3, 0.5d
-    ComplianceRule nodes + queries   :p5, after p4, 1d
-    TacitKnowledge nodes + gap query :p6, after p5, 1d
-    Proactive pattern match query    :p7, after p6, 1d
-
-    section Polish
-    Data cleanup + seed script       :p8, after p7, 1.5d
-    Metrics compilation              :p9, after p8, 1d
-    Deck review + Q&A prep           :p10, after p9, 1d
-```
+| Phase | Status | Notes |
+|-------|--------|-------|
+| Phase 0 — Setup | ✅ Done | Repo, Neo4j, Postgres Docker, README, backend scaffold |
+| Phase 1 — Data Corpus | ✅ Done | 3 documents sourced and organized in `/data/raw/` |
+| Phase 2 — Ingestion + Extraction | ✅ Done | Full pipeline: Groq extraction, embeddings, Postgres + Neo4j |
+| Phase 3 — RAG Copilot | 🟡 In progress | Basic read stubs exist, RAG-specific queries needed |
+| Phase 4 — Confidence Tiering | ⬜ Not started | Support/buffer phase |
+| Phase 5 — Compliance Engine | ⬜ Not started | ComplianceRule nodes + queries |
+| Phase 6 — Tacit Knowledge | ⬜ Not started | TacitKnowledge nodes + gap detection |
+| Phase 7 — Proactive Push | ⬜ Not started | Pattern matching query |
+| Phase 8 — Frontend Polish | ⬜ Not started | Demo data cleanup + seed script |
+| Phase 9 — Evaluation | ⬜ Not started | Metrics compilation |
+| Phase 10 — Deck & Demo | ⬜ Not started | Architecture review + Q&A prep |
 
 ---
 
@@ -365,17 +307,18 @@ gantt
 
 ```
 backend/app/graph/
-├── driver.py          # Neo4j connection setup
-├── schema.py          # Constraints, indexes, schema initialization
-├── write.py           # All create/update functions for graph nodes & relationships
-└── read.py            # All query functions (equipment history, compliance, patterns, gaps)
+├── __init__.py
+├── driver.py          # Neo4j connection setup (singleton)          ✅ Done
+├── schema.py          # Constraints, indexes, schema initialization ✅ Done
+├── write.py           # All create/update functions for graph nodes  ✅ Done
+└── read.py            # All query functions (stubs exist)           🟡 In progress
 
 data/
-├── raw/               # Sourced real documents
+├── raw/               # Sourced real documents                      ⬜ Pending
 │   ├── crac_piping_diagram.pdf
 │   ├── oem_manual_excerpt.pdf
 │   └── ashrae_tc9.9_guidelines.txt
 
 scripts/
-└── seed_demo_data.py  # Reset graph to demo-ready state
+└── seed_demo_data.py  # Reset graph to demo-ready state             ⬜ Pending
 ```

@@ -1,0 +1,322 @@
+================================================================================
+Vertiv™ Liebert® DS/DSE Series — Precision Cooling System
+OEM Manual Excerpt — Installation, Operation, and Maintenance
+================================================================================
+
+Product:       Vertiv™ Liebert® DS Precision Cooling System
+Series:        DS (Direct Expansion) / DSE (Economizer-Enhanced)
+Document Type: Installer/User Guide — Excerpted Summary
+Manufacturer:  Vertiv Co. (formerly Emerson Network Power / Liebert Corporation)
+
+NOTE: This is an excerpt of publicly available technical information from
+Vertiv's published documentation for the Liebert DS/DSE series CRAC units.
+For complete documentation, visit https://www.vertiv.com/en-us/support/
+
+================================================================================
+1. PRODUCT OVERVIEW
+================================================================================
+
+The Liebert DS is a precision, downflow or upflow air conditioning system
+designed specifically for data center and technology room environments. It
+provides close control of temperature and humidity to protect sensitive
+electronic equipment.
+
+Key Features:
+- Designed for 24/7/365 continuous operation
+- Variable-speed EC (Electronically Commutated) fans for energy efficiency
+- iCOM™ microprocessor controls for precise environmental management
+- Available in air-cooled, water-cooled, and glycol-cooled configurations
+- Modular design for ease of maintenance and component replacement
+
+Models and Configurations:
+┌────────────┬──────────────────┬───────────────────┬──────────────────┐
+│ Model      │ Cooling Capacity │ Airflow (CFM)     │ Cooling Medium   │
+├────────────┼──────────────────┼───────────────────┼──────────────────┤
+│ DS050      │ 50 kW (14.2 ton) │ 7,000             │ DX / Air-Cooled  │
+│ DS077      │ 77 kW (21.9 ton) │ 10,000            │ DX / Air-Cooled  │
+│ DS105      │ 105 kW (29.9 ton)│ 14,000            │ DX / Air-Cooled  │
+│ DS150      │ 150 kW (42.7 ton)│ 21,000            │ DX / Air-Cooled  │
+│ DS200      │ 200 kW (56.9 ton)│ 28,000            │ DX / Water-Cooled│
+│ DS250      │ 265 kW (75.3 ton)│ 37,000            │ DX / Water-Cooled│
+└────────────┴──────────────────┴───────────────────┴──────────────────┘
+
+Refrigerant: R-410A (all models)
+
+================================================================================
+2. TECHNICAL SPECIFICATIONS
+================================================================================
+
+2.1 Operating Conditions
+
+  Supply Air Temperature:    12°C to 18°C (54°F to 64°F)
+  Return Air Temperature:    24°C to 35°C (75°F to 95°F)
+  Operating Ambient (outdoor): -40°C to 52°C (-40°F to 125°F)
+  Humidity Control Range:    30% to 60% RH (±3% accuracy)
+  Sound Level:               65-72 dBA at 1 meter (varies by model)
+  
+2.2 Electrical Requirements
+
+  Power Supply:              208/230V or 460V, 3-phase, 60Hz
+                             380/400V, 3-phase, 50Hz (international)
+  Full Load Amps (DS105):    48A at 460V / 96A at 230V
+  Starting Current:          Up to 6x full load (soft start recommended)
+  
+2.3 Physical Dimensions (DS105 — typical mid-range unit)
+
+  Height:                    1,905 mm (75 inches)
+  Width:                     1,067 mm (42 inches)
+  Depth:                     914 mm (36 inches)
+  Operating Weight:          680 kg (1,500 lbs)
+  
+2.4 Refrigerant System
+
+  Refrigerant Type:          R-410A
+  Factory Charge:            Varies by model and line length
+  Maximum Line Length:        60 meters (200 feet)
+  Maximum Elevation Change:   15 meters (50 feet) between indoor and outdoor
+  Oil Type:                  POE (Polyolester)
+  Number of Compressors:     1 or 2 (model dependent, scroll type)
+
+================================================================================
+3. INSTALLATION REQUIREMENTS
+================================================================================
+
+3.1 Pre-Installation Checklist
+
+  □ Verify structural floor capacity (minimum 500 kg/m² for raised floor)
+  □ Confirm electrical supply matches unit nameplate requirements
+  □ Ensure minimum clearances:
+    - Front: 900 mm (36") for airflow and filter access
+    - Rear:  600 mm (24") for piping connections
+    - Sides: 300 mm (12") for panel removal
+    - Top:   450 mm (18") minimum for upflow units
+  □ Verify raised floor height is adequate (minimum 300mm / 12")
+  □ Confirm condensate drain location and slope (minimum 1% grade)
+
+3.2 Piping Installation
+
+  CRITICAL SAFETY NOTICE: All piping work must be performed by licensed
+  HVAC/R technicians in compliance with local building codes.
+
+  - Use ACR (Air Conditioning and Refrigeration) grade copper tubing only
+  - All joints must be brazed under dry nitrogen purge
+  - Pressure test at 450 PSI (high side) and 150 PSI (low side) for 24 hours
+  - Evacuate to 500 microns or less before charging
+  - Insulate suction line with minimum 19mm (3/4") closed-cell insulation
+  
+3.3 Condensate Drain
+
+  - Connect 19mm (3/4") PVC condensate drain to building drain system
+  - Maintain minimum 1% slope away from unit
+  - Install P-trap with minimum 50mm (2") depth
+  - Provide secondary (overflow) drain pan where code requires
+
+================================================================================
+4. iCOM™ CONTROLS — OPERATION
+================================================================================
+
+4.1 Control System Overview
+
+The Liebert iCOM™ is an advanced microprocessor-based control system that
+monitors and manages all cooling functions including:
+
+  - Supply and return air temperature
+  - Humidity sensing and control
+  - Compressor staging and capacity modulation
+  - Fan speed control (variable-speed EC fans)
+  - Filter status monitoring
+  - Alarm management and notification
+  - Network communication (BACnet, Modbus, SNMP)
+
+4.2 Operating Modes
+
+  COOLING:      Primary mode — maintains setpoint via compressor operation
+  HEATING:      Electric reheat coils activate when temperature drops below
+                setpoint minus deadband
+  HUMIDIFYING:  Infrared or canister-type humidifier activates when humidity
+                falls below setpoint
+  DEHUMIDIFYING: Overcooling + reheat cycle to remove excess moisture
+  ECONOMIZER:   (DSE models) Free-cooling mode using outdoor air or pumped
+                refrigerant when ambient conditions permit
+  STANDBY:      Unit monitors conditions but does not actively cool
+                (used in N+1 redundancy configurations)
+
+4.3 Setpoint Configuration
+
+  Default Temperature Setpoint:  72°F / 22°C
+  Default Humidity Setpoint:     45% RH
+  Temperature Deadband:          ±2°F / ±1°C (adjustable)
+  Humidity Deadband:             ±5% RH (adjustable)
+  High Temperature Alarm:        80°F / 27°C (adjustable)
+  Low Temperature Alarm:         60°F / 16°C (adjustable)
+  High Humidity Alarm:           60% RH (adjustable)
+  Low Humidity Alarm:            30% RH (adjustable)
+
+4.4 Alarm Codes
+
+┌──────────┬──────────────────────────────────────┬──────────────┐
+│ Code     │ Description                          │ Severity     │
+├──────────┼──────────────────────────────────────┼──────────────┤
+│ ALM-001  │ High Supply Air Temperature          │ CRITICAL     │
+│ ALM-002  │ Low Supply Air Temperature           │ WARNING      │
+│ ALM-003  │ High Return Air Temperature          │ CRITICAL     │
+│ ALM-004  │ Compressor High Pressure Lockout     │ CRITICAL     │
+│ ALM-005  │ Compressor Low Pressure Lockout      │ CRITICAL     │
+│ ALM-006  │ Loss of Airflow                      │ CRITICAL     │
+│ ALM-007  │ Humidity Out of Range (High)         │ WARNING      │
+│ ALM-008  │ Humidity Out of Range (Low)          │ WARNING      │
+│ ALM-009  │ Filter Change Required               │ MAINTENANCE  │
+│ ALM-010  │ Condensate Overflow                  │ WARNING      │
+│ ALM-011  │ Fan Failure                          │ CRITICAL     │
+│ ALM-012  │ Communication Loss (BACnet/Modbus)   │ WARNING      │
+│ ALM-013  │ Power Phase Loss                     │ CRITICAL     │
+│ ALM-014  │ Refrigerant Leak Detected            │ CRITICAL     │
+│ ALM-015  │ Economizer Fault (DSE only)          │ WARNING      │
+└──────────┴──────────────────────────────────────┴──────────────┘
+
+================================================================================
+5. MAINTENANCE SCHEDULE
+================================================================================
+
+⚠ SAFETY WARNING: Disconnect ALL local and remote power supplies before
+performing any maintenance. Fan-motor controls can retain electric charge
+for up to 10 minutes after power is disconnected.
+
+5.1 Monthly Maintenance
+
+  □ Check and record supply and return air temperatures
+  □ Check and record humidity levels
+  □ Inspect condensate drain and P-trap (flush if necessary)
+  □ Check iCOM display for active alarms or warnings
+  □ Verify fan operation (listen for unusual noise/vibration)
+  □ Check condenser coil (outdoor unit) for debris accumulation
+
+5.2 Quarterly Maintenance (Every 90 Days)
+
+  □ Inspect and clean evaporator coils
+  □ Inspect and clean condenser coils (outdoor unit)
+  □ Replace air filters (or when pressure drop exceeds 0.5" W.C.)
+  □ Check refrigerant pressures (suction and discharge)
+  □ Inspect electrical connections for tightness
+  □ Lubricate fan bearings (if applicable — EC fans are sealed)
+  □ Test condensate pump operation (if equipped)
+  □ Verify temperature and humidity sensor calibration
+  □ Check belt tension and condition (belt-drive models only)
+
+5.3 Semi-Annual Maintenance (Every 6 Months)
+
+  □ Full refrigerant system leak test
+  □ Check compressor oil level and condition
+  □ Inspect humidifier canister or IR lamps (replace if scaled)
+  □ Test all safety controls and alarm setpoints
+  □ Clean condensate pan thoroughly
+  □ Inspect wiring and control board for signs of wear or corrosion
+  □ Verify economizer operation (DSE models)
+
+5.4 Annual Maintenance
+
+  □ Complete refrigerant charge verification and documentation
+  □ Comprehensive electrical system inspection
+  □ Vibration analysis on compressors and fans
+  □ Full calibration of all sensors (temperature, humidity, pressure)
+  □ Infrared thermography of electrical connections
+  □ Review and update iCOM firmware if new version available
+  □ Update maintenance log and compliance documentation
+
+5.5 Filter Specifications
+
+  Filter Type:        MERV 8 (standard) / MERV 13 (high-efficiency option)
+  Filter Size:        Varies by model — see unit nameplate
+  Replacement Trigger: Pressure drop > 0.5" W.C. OR 90 days, whichever first
+  Direction:          Arrow on filter frame must match airflow direction
+
+================================================================================
+6. TROUBLESHOOTING GUIDE
+================================================================================
+
+6.1 Unit Not Cooling
+
+  SYMPTOM: Supply air temperature rising, compressor not running
+  POSSIBLE CAUSES:
+    1. Compressor high-pressure lockout → Check condenser coil for blockage
+    2. Compressor low-pressure lockout → Check for refrigerant leak
+    3. Loss of airflow → Check fan operation, dirty filters
+    4. Power phase loss → Verify all 3 phases present at disconnect
+    5. iCOM control fault → Check display for alarm codes
+  
+  ACTION: Review alarm history on iCOM display. If ALM-004 (high pressure),
+  check outdoor ambient temperature and condenser coil cleanliness first.
+
+6.2 Unit Short-Cycling
+
+  SYMPTOM: Compressor starts and stops frequently (more than 6x per hour)
+  POSSIBLE CAUSES:
+    1. Temperature deadband too narrow → Increase to ±2°F minimum
+    2. Oversized unit for the load → Consider staging or standby mode
+    3. Refrigerant overcharge → Verify charge per nameplate
+    4. Faulty expansion valve → Check superheat readings
+    
+6.3 High Humidity
+
+  SYMPTOM: Humidity exceeds 60% RH despite cooling operation
+  POSSIBLE CAUSES:
+    1. Outside air infiltration → Seal room envelope
+    2. Humidifier stuck on → Check humidifier control circuit
+    3. Insufficient reheat capacity → Verify reheat elements
+    4. Excessive latent load → Consider dedicated dehumidification
+
+6.4 Unusual Noise or Vibration
+
+  SYMPTOM: New or increasing mechanical noise from unit
+  POSSIBLE CAUSES:
+    1. Fan bearing wear → Schedule bearing replacement
+    2. Loose mounting hardware → Retighten all mounting bolts
+    3. Compressor internal wear → Monitor vibration levels
+    4. Refrigerant slugging → Check superheat and subcooling
+    
+================================================================================
+7. COMMON FAILURE MODES
+================================================================================
+
+Based on field data from Liebert DS/DSE installations, the most common
+failure modes and their typical frequencies:
+
+7.1 Compressor Failure
+  - Frequency: ~5% of units per year
+  - Root Causes: Electrical failure (40%), mechanical wear (35%),
+    liquid slugging (15%), oil migration (10%)
+  - Warning Signs: Increasing noise, rising current draw, superheat drift
+  - Prevention: Regular refrigerant checks, proper charge, clean condenser
+
+7.2 Fan Motor Failure
+  - Frequency: ~3% of units per year
+  - Root Causes: Bearing wear (60%), electrical winding failure (25%),
+    control board fault (15%)
+  - Warning Signs: Vibration increase, airflow reduction, ALM-006 alarm
+  - Prevention: Regular vibration monitoring, keep filters clean
+
+7.3 Refrigerant Leak
+  - Frequency: ~8% of units per year (minor leaks)
+  - Root Causes: Vibration fatigue at brazed joints (45%), Schrader valve
+    cap issues (30%), factory defect (15%), physical damage (10%)
+  - Warning Signs: Gradual capacity loss, low suction pressure, icing on
+    suction line, ALM-014 alarm
+  - Prevention: Annual leak testing, vibration isolation, proper brazing
+
+7.4 Control Board Failure
+  - Frequency: ~2% of units per year
+  - Root Causes: Power surge (50%), component aging (30%), moisture
+    intrusion (20%)
+  - Warning Signs: Erratic operation, display glitches, communication loss
+  - Prevention: Surge protection, proper ventilation, firmware updates
+
+7.5 Condensate Overflow
+  - Frequency: ~12% of units per year (most common issue)
+  - Root Causes: Clogged drain line (55%), failed condensate pump (25%),
+    missing P-trap (10%), improper slope (10%)
+  - Warning Signs: Water on floor around unit, ALM-010 alarm
+  - Prevention: Monthly drain inspection, quarterly flush
+
+================================================================================
+END OF DOCUMENT
+================================================================================

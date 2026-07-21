@@ -1,0 +1,119 @@
+You are an expert entity extraction system for data center cooling infrastructure.
+
+Given a document about data center cooling systems, extract ALL structured entities and their relationships.
+
+## Document to Process
+
+```
+{document_text}
+```
+
+## Extraction Rules
+
+1. Extract every entity you can identify — equipment, failure modes, incidents, technicians, compliance rules, work orders, and tacit knowledge.
+2. For each entity, provide all available properties.
+3. For each relationship between entities, specify both endpoints.
+4. If a property is not mentioned, omit it entirely (do NOT use null or "unknown").
+5. Use consistent naming — if the same entity appears multiple times, use the same name each time.
+6. Dates should be in ISO 8601 format (YYYY-MM-DD) where possible.
+
+## Output Format
+
+Return a JSON object with this exact structure:
+
+```json
+{{
+  "entities": {{
+    "equipment": [
+      {{
+        "name": "CRAC-3",
+        "type": "CRAC",
+        "location": "Data Hall A, Row 3",
+        "manufacturer": "Vertiv",
+        "model": "Liebert DS105",
+        "capacity_kw": 105
+      }}
+    ],
+    "failure_modes": [
+      {{
+        "name": "Compressor High Pressure Lockout",
+        "description": "Compressor shuts down due to excessive discharge pressure",
+        "severity": "critical",
+        "common_causes": "Dirty condenser coil, refrigerant overcharge, high ambient temperature"
+      }}
+    ],
+    "incidents": [
+      {{
+        "incident_id": "INC-2024-001",
+        "date": "2024-03-15",
+        "description": "CRAC-3 high temperature alarm, compressor lockout",
+        "severity": "critical",
+        "resolution": "Cleaned condenser coil, reset compressor",
+        "downtime_hours": 2.5
+      }}
+    ],
+    "work_orders": [
+      {{
+        "order_id": "WO-2024-042",
+        "type": "preventive_maintenance",
+        "completed_date": "2024-03-01",
+        "description": "Quarterly coil cleaning and filter replacement"
+      }}
+    ],
+    "technicians": [
+      {{
+        "name": "Mike Rodriguez",
+        "role": "senior_technician"
+      }}
+    ],
+    "compliance_rules": [
+      {{
+        "clause_ref": "ASHRAE-TC9.9-6.2",
+        "description": "Coil cleaning interval",
+        "requirement": "CRAC unit coils must be cleaned every 90 days",
+        "applies_to": "CRAC",
+        "interval_days": 90
+      }}
+    ]
+  }},
+  "relationships": [
+    {{
+      "from_type": "Incident",
+      "from_id": "INC-2024-001",
+      "relationship": "INVOLVES",
+      "to_type": "Equipment",
+      "to_id": "CRAC-3"
+    }},
+    {{
+      "from_type": "Incident",
+      "from_id": "INC-2024-001",
+      "relationship": "MATCHES_PATTERN",
+      "to_type": "FailureMode",
+      "to_id": "Compressor High Pressure Lockout"
+    }},
+    {{
+      "from_type": "Equipment",
+      "from_id": "CRAC-3",
+      "relationship": "HAS_FAILURE_MODE",
+      "to_type": "FailureMode",
+      "to_id": "Compressor High Pressure Lockout"
+    }},
+    {{
+      "from_type": "Equipment",
+      "from_id": "CRAC-3",
+      "relationship": "GOVERNED_BY",
+      "to_type": "ComplianceRule",
+      "to_id": "ASHRAE-TC9.9-6.2"
+    }}
+  ],
+  "document_summary": "Brief 1-2 sentence summary of the document's content."
+}}
+```
+
+## Important Notes
+
+- Extract entities even from maintenance schedules, specification tables, and troubleshooting guides
+- For equipment specifications, include model, capacity, and refrigerant type if mentioned
+- For compliance rules, include the interval (in days) and what equipment type they apply to
+- For failure modes, include common causes and severity level
+- Return ONLY the JSON object, no other text

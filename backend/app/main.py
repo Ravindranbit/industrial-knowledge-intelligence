@@ -11,20 +11,32 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import ingest, query, compliance, interview, alerts
 from app.graph.driver import get_driver, close_driver
+from app.models.database import init_db
 from app.config import settings
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle: open and close DB connections."""
+    # Startup: initialize Postgres tables
+    try:
+        init_db()
+    except Exception as e:
+        print(f"Warning: Postgres init failed (is Docker running?): {e}")
+
     # Startup: verify Neo4j connectivity
-    driver = get_driver()
-    driver.verify_connectivity()
-    print("✓ Neo4j connection verified")
+    try:
+        driver = get_driver()
+        driver.verify_connectivity()
+        print("Success: Neo4j connection verified")
+    except Exception as e:
+        print(f"Warning: Neo4j connection failed (continuing without graph): {e}")
+
     yield
+
     # Shutdown: close connections
     close_driver()
-    print("✓ Neo4j connection closed")
+    print("Success: Connections closed")
 
 
 app = FastAPI(
