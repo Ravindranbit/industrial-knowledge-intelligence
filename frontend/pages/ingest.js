@@ -59,8 +59,9 @@ export default function Ingest() {
 
   return (
     <div className="space-y-6">
-      <section className="card grid gap-6 xl:grid-cols-[0.8fr_2.2fr] xl:items-end">
-        <div>
+      {/* Top Header & Stats Area - Borderless layout */}
+      <section className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+        <div className="max-w-3xl flex-1">
           <SectionHeader
             eyebrow="Document intake"
             title="Drag-and-drop ingestion experience"
@@ -73,7 +74,7 @@ export default function Ingest() {
             <StatusPill tone="green">Indexed automatically</StatusPill>
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid w-full gap-4 sm:grid-cols-2 xl:w-[480px]">
           <StatCard label="Processing time" value="~30s" delta="Typical" hint="Depends on document size" tone="blue" />
           <StatCard label="Pipeline state" value={stage === 'complete' ? 'Ready' : stage === 'processing' ? 'Parsing' : 'Idle'} delta={stage === 'error' ? 'Retry needed' : 'Live'} hint="Document processing state" tone={stage === 'error' ? 'amber' : 'green'} />
         </div>
@@ -86,44 +87,44 @@ export default function Ingest() {
               onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
               onDragLeave={() => setDragActive(false)}
               onDrop={handleDrop}
-              className={`rounded-3xl border-2 border-dashed p-8 text-center transition ${dragActive ? 'border-blue-400 bg-blue-50' : 'border-slate-200 bg-slate-50'}`}
+              className={`rounded-3xl border-2 border-dashed p-8 text-center transition duration-200 ${dragActive ? 'border-pastel-500 bg-pastel-50/50' : 'border-zinc-200 bg-zinc-50/50 hover:bg-zinc-50'}`}
             >
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
-                <UploadCloud className="h-8 w-8 text-blue-600" />
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-zinc-200 shadow-sm">
+                <UploadCloud className="h-8 w-8 text-pastel-700" />
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-slate-900">Drop a document here</h3>
-              <p className="mt-2 text-sm text-slate-600">Or choose a file, paste raw text, and send it through the knowledge pipeline.</p>
+              <h3 className="mt-4 text-lg font-semibold text-zinc-900">Drop a document here</h3>
+              <p className="mt-2 text-xs text-zinc-500 leading-relaxed">Or choose a file, paste raw text, and send it through the knowledge pipeline.</p>
               <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <label className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0">
+                <label className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-pastel-600 px-4 py-3 text-xs font-semibold text-white shadow-lg shadow-pastel-600/15 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-pastel-500 active:translate-y-0">
                   <FileUp className="h-4 w-4" />
                   Select file
                   <input type="file" className="hidden" onChange={(e) => onFilePick(e.target.files[0])} />
                 </label>
-                <button type="button" onClick={() => { setFile(null); setText(''); setTitle(''); setStatus(null); setStage('idle') }} className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-slate-50 active:translate-y-0">Reset</button>
+                <button type="button" onClick={() => { setFile(null); setText(''); setTitle(''); setStatus(null); setStage('idle') }} className="ui-button-secondary text-xs font-semibold">Reset</button>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               <div>
-                <div className="text-sm font-medium text-slate-700">Document title</div>
-                <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. CRAC maintenance manual" className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" />
+                <div className="text-xs font-semibold text-zinc-650">Document title</div>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. CRAC maintenance manual" className="ui-input mt-2 text-xs" />
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-700">Selected file</div>
-                <div className="mt-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">{file ? file.name : 'No file selected'}</div>
+                <div className="text-xs font-semibold text-zinc-650">Selected file</div>
+                <div className="mt-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-xs text-zinc-550">{file ? file.name : 'No file selected'}</div>
               </div>
             </div>
 
             <div className="mt-4">
-              <div className="text-sm font-medium text-slate-700">Or paste raw text</div>
-              <textarea value={text} onChange={(e) => setText(e.target.value)} rows={7} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" placeholder="Paste an SOP, incident note, or manual excerpt..." />
+              <div className="text-xs font-semibold text-zinc-650">Or paste raw text</div>
+              <textarea value={text} onChange={(e) => setText(e.target.value)} rows={7} className="ui-input mt-2 text-xs leading-relaxed" placeholder="Paste an SOP, incident note, or manual excerpt..." />
             </div>
 
-            <div className="mt-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div className="h-2 w-full rounded-full bg-slate-100 md:max-w-md">
-                <div className={`h-2 rounded-full ${stage === 'error' ? 'bg-rose-500' : 'bg-blue-600'}`} style={{ width: `${progress}%` }} />
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="h-1.5 w-full rounded-full bg-zinc-200/60 sm:max-w-md">
+                <div className={`h-1.5 rounded-full ${stage === 'error' ? 'bg-rose-500' : 'bg-pastel-600'}`} style={{ width: `${progress}%` }} />
               </div>
-              <button onClick={upload} disabled={loading} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60">
+              <button onClick={upload} disabled={loading} className="ui-button text-xs whitespace-nowrap" style={{ paddingLeft: '24px', paddingRight: '24px' }}>
                 {loading ? 'Processing...' : 'Ingest document'}
               </button>
             </div>
@@ -131,31 +132,31 @@ export default function Ingest() {
 
           {status && (
             <div className="card">
-              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
-                {stage === 'complete' ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <AlertCircle className="h-4 w-4 text-rose-600" />}
+              <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900">
+                {stage === 'complete' ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <AlertCircle className="h-4 w-4 text-rose-500" />}
                 Processing result
               </div>
-              <pre className="mt-4 overflow-auto rounded-2xl bg-slate-50 p-4 text-sm text-slate-700">{JSON.stringify(status, null, 2)}</pre>
+              <pre className="mt-4 overflow-auto rounded-2xl bg-zinc-50 border border-zinc-250/50 p-4 text-xs text-zinc-600 leading-relaxed max-h-60">{JSON.stringify(status, null, 2)}</pre>
             </div>
           )}
         </div>
 
         <div className="space-y-4">
           <div className="card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><Clock3 className="h-4 w-4 text-blue-600" />Processing states</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900"><Clock3 className="h-4 w-4 text-pastel-700 animate-pulse" />Processing states</div>
             <div className="mt-4 space-y-3">
-              <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 text-sm"><span>Queued</span><StatusPill tone={stage === 'idle' ? 'slate' : 'green'}>{stage === 'idle' ? 'Waiting' : 'Done'}</StatusPill></div>
-              <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 text-sm"><span>Parsing</span><StatusPill tone={stage === 'processing' ? 'amber' : 'green'}>{stage === 'processing' ? 'In progress' : 'Done'}</StatusPill></div>
-              <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 text-sm"><span>Embedding</span><StatusPill tone={stage === 'complete' ? 'green' : 'slate'}>{stage === 'complete' ? 'Complete' : 'Pending'}</StatusPill></div>
+              <div className="flex items-center justify-between rounded-2xl bg-zinc-50/50 border border-zinc-200/60 px-4 py-3 text-xs"><span>Queued</span><StatusPill tone={stage === 'idle' ? 'slate' : 'green'}>{stage === 'idle' ? 'Waiting' : 'Done'}</StatusPill></div>
+              <div className="flex items-center justify-between rounded-2xl bg-zinc-50/50 border border-zinc-200/60 px-4 py-3 text-xs"><span>Parsing</span><StatusPill tone={stage === 'processing' ? 'amber' : 'green'}>{stage === 'processing' ? 'In progress' : 'Done'}</StatusPill></div>
+              <div className="flex items-center justify-between rounded-2xl bg-zinc-50/50 border border-zinc-200/60 px-4 py-3 text-xs"><span>Embedding</span><StatusPill tone={stage === 'complete' ? 'green' : 'slate'}>{stage === 'complete' ? 'Complete' : 'Pending'}</StatusPill></div>
             </div>
           </div>
 
           <div className="card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><CheckCircle2 className="h-4 w-4 text-blue-600" />Recommended next steps</div>
-            <div className="mt-4 space-y-3 text-sm text-slate-600">
-              <div className="rounded-2xl bg-slate-50 p-4">Review extracted metadata for accuracy.</div>
-              <div className="rounded-2xl bg-slate-50 p-4">Ask the copilot to summarize the new content.</div>
-              <div className="rounded-2xl bg-slate-50 p-4">Use the interview workflow to capture missing tacit knowledge.</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900"><CheckCircle2 className="h-4 w-4 text-pastel-700" />Recommended next steps</div>
+            <div className="mt-4 space-y-3 text-xs text-zinc-550 leading-relaxed">
+              <div className="rounded-2xl bg-zinc-50/50 border border-zinc-200/60 p-4">Review extracted metadata for accuracy.</div>
+              <div className="rounded-2xl bg-zinc-50/50 border border-zinc-200/60 p-4">Ask the copilot to summarize the new content.</div>
+              <div className="rounded-2xl bg-zinc-50/50 border border-zinc-200/60 p-4">Use the interview workflow to capture missing tacit knowledge.</div>
             </div>
           </div>
 
@@ -163,8 +164,8 @@ export default function Ingest() {
             <EmptyState
               title="No document selected"
               description="Choose a file or paste content to begin the ingestion workflow. The intake panel will show progress as the document moves through parsing and indexing."
-              primaryAction={<label className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white"><input type="file" className="hidden" onChange={(e) => onFilePick(e.target.files[0])} />Select file</label>}
-              secondaryAction={<button onClick={() => setText('Sample maintenance note...')} className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700">Insert sample text</button>}
+               primaryAction={<label className="rounded-2xl bg-pastel-600 px-4 py-3 text-xs font-semibold text-white shadow-lg shadow-pastel-600/15 hover:bg-pastel-500 cursor-pointer"><input type="file" className="hidden" onChange={(e) => onFilePick(e.target.files[0])} />Select file</label>}
+              secondaryAction={<button onClick={() => setText('Sample maintenance note...')} className="ui-button-secondary text-xs font-semibold">Insert sample text</button>}
               illustration="diagram"
             />
           )}
@@ -175,3 +176,4 @@ export default function Ingest() {
 }
 
 Ingest.pageMeta = { title: 'Document Intake', description: 'Drag, drop, and process documents through an ingestion workflow.', breadcrumbs: ['Workspace', 'Upload'] }
+
