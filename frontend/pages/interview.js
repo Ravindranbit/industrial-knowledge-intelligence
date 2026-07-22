@@ -66,36 +66,42 @@ export default function Interview() {
 
   return (
     <div className="space-y-6">
-      <section className="card grid gap-6 xl:grid-cols-[0.8fr_2.2fr] xl:items-center">
-        <div>
+      {/* Top Header & Stats Area - Borderless layout */}
+      <section className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+        <div className="flex-1 max-w-3xl">
           <SectionHeader
             eyebrow="Workflow"
             title="Guided multi-step interview"
             description="Capture operational knowledge in a sequence that keeps the interviewer oriented, instead of dropping them into a blank form."
           />
-          <div className="mt-5 space-y-3">
-            {steps.map((item, index) => (
-              <div key={item.title} className={`flex gap-4 rounded-2xl border p-4 ${step === index + 1 ? 'border-blue-200 bg-blue-50' : 'border-slate-200 bg-white'}`}>
-                <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">{index + 1}</div>
-                <div>
-                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
-                    {item.title}
-                    <StatusPill tone={item.badgeTone}>{item.badge}</StatusPill>
+          <div className="mt-5 space-y-2.5">
+            {steps.map((item, index) => {
+              const isActive = step === index + 1
+              return (
+                <div key={item.title} className={`flex gap-4 rounded-2xl border p-4 transition duration-200 ${isActive ? 'border-pastel-500/20 bg-pastel-50/50' : 'border-zinc-200 bg-white shadow-sm'}`}>
+                  <div className={`mt-1 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold ${isActive ? 'bg-pastel-600 text-white shadow-sm' : 'bg-zinc-50 border border-zinc-200 text-zinc-500'}`}>
+                    {index + 1}
                   </div>
-                  <div className="mt-1 text-sm text-slate-600">{item.description}</div>
+                  <div>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-zinc-900">
+                      {item.title}
+                      <StatusPill tone={item.badgeTone}>{item.badge}</StatusPill>
+                    </div>
+                    <div className="mt-1 text-[11px] text-zinc-550 leading-relaxed">{item.description}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-3">
-          <StatCard label="Questions captured" value={questions.length || 0} delta={questions.length ? 'Workflow ready' : 'Awaiting generation'} hint="Use the guided flow to capture tacit knowledge" tone="violet" />
+        <div className="grid w-full gap-4 sm:grid-cols-3 xl:w-[680px]">
+          <StatCard label="Questions captured" value={questions.length || 0} delta={questions.length ? 'Workflow ready' : 'Awaiting generation'} hint="Use guided flow to capture tacit knowledge" tone="violet" />
           <StatCard label="Completion progress" value={`${progress}%`} delta={loading ? 'Updating' : 'Tracking answers'} hint="Current question completion" tone="blue" />
           <div className="card flex flex-col justify-between py-4 px-5">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Interview tips</div>
-              <ul className="mt-3 space-y-1.5 text-xs text-slate-600">
+              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">Interview tips</div>
+              <ul className="mt-3.5 space-y-2 text-xs text-zinc-555 leading-relaxed">
                 <li>• Ask for examples, not yes/no.</li>
                 <li>• Capture the “why” behind actions.</li>
                 <li>• Save before moving to next lead.</li>
@@ -105,13 +111,17 @@ export default function Interview() {
         </div>
       </section>
 
+      {/* Main Panel Grid */}
       <section className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
         <div className="space-y-4">
           <div className="card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><Search className="h-4 w-4 text-blue-600" />Equipment</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900">
+              <Search className="h-4 w-4 text-pastel-700 animate-pulse" />
+              Equipment ID
+            </div>
             <form onSubmit={genQuestions} className="mt-4 space-y-3">
-              <input value={equipment} onChange={(e) => setEquipment(e.target.value)} placeholder="Equipment ID (CRAC-3)" className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" />
-              <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60">Generate questions</button>
+              <input value={equipment} onChange={(e) => setEquipment(e.target.value)} placeholder="Equipment ID (CRAC-3)" className="ui-input text-xs" />
+              <button type="submit" className="ui-button text-xs w-full">Generate questions</button>
             </form>
             <div className="mt-4 flex flex-wrap gap-2">
               <PromptPills prompts={[ 'CRAC-3', 'Generator A', 'North stack', 'Cooling loop 2' ]} onPick={setEquipment} />
@@ -119,13 +129,16 @@ export default function Interview() {
           </div>
 
           <div className="card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><Users className="h-4 w-4 text-blue-600" />Session log</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900">
+              <Users className="h-4 w-4 text-pastel-700" />
+              Session log
+            </div>
             <div className="mt-4">
               <Timeline
                 items={[
-                  { title: 'Owner selected', description: 'Facility engineer started the guided capture session.', meta: 'Just now', dot: 'bg-blue-500' },
-                  { title: 'Question set generated', description: 'A tailored set of prompts is ready for the selected asset.', meta: 'Pending', dot: 'bg-slate-300' },
-                  { title: 'Answers saved', description: 'The session will be archived after completion.', meta: 'Pending', dot: 'bg-slate-300' },
+                  { title: 'Owner selected', description: 'Facility engineer started the guided capture session.', meta: 'Just now', dot: 'bg-pastel-600' },
+                  { title: 'Question set generated', description: 'A tailored set of prompts is ready for the selected asset.', meta: 'Pending', dot: 'bg-zinc-300' },
+                  { title: 'Answers saved', description: 'The session will be archived after completion.', meta: 'Pending', dot: 'bg-zinc-300' },
                 ]}
               />
             </div>
@@ -135,13 +148,13 @@ export default function Interview() {
         <div className="space-y-4">
           {questions.length > 0 ? (
             <div className="card space-y-5">
-              <div className="flex flex-col gap-4 border-b border-slate-200 pb-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-col gap-4 border-b border-zinc-200 pb-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <div className="text-sm font-medium text-slate-500">Question {currentIndex + 1} of {questions.length}</div>
-                  <div className="mt-1 text-lg font-semibold text-slate-900">Guided prompt capture</div>
+                  <div className="text-xs font-semibold text-zinc-505">Question {currentIndex + 1} of {questions.length}</div>
+                  <div className="mt-1 text-base font-semibold text-zinc-900">Guided prompt capture</div>
                 </div>
-                <div className="h-2 w-full rounded-full bg-slate-100 md:w-64">
-                  <div className="h-2 rounded-full bg-blue-600" style={{ width: `${progress}%` }} />
+                <div className="h-1.5 w-full rounded-full bg-zinc-150 md:w-64">
+                  <div className="h-1.5 rounded-full bg-pastel-600" style={{ width: `${progress}%` }} />
                 </div>
               </div>
 
@@ -152,37 +165,37 @@ export default function Interview() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -12 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-3xl bg-slate-50 p-5"
+                  className="rounded-3xl border border-zinc-200 bg-white/60 p-5 shadow-sm"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><ClipboardList className="h-4 w-4 text-blue-600" />Current question</div>
-                      <div className="mt-3 text-xl font-semibold leading-8 text-slate-900">{currentQuestion}</div>
+                      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-pastel-700"><ClipboardList className="h-4 w-4" />Current question</div>
+                      <div className="mt-3 text-lg font-bold leading-normal text-zinc-900">{currentQuestion}</div>
                     </div>
                   </div>
-                  <textarea rows={7} className="mt-4 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" value={answers[currentQuestion] || ''} onChange={(e) => setAnswers({ ...answers, [currentQuestion]: e.target.value })} placeholder="Capture the operator's response here..." />
+                  <textarea rows={7} className="ui-input mt-4 text-xs leading-relaxed" value={answers[currentQuestion] || ''} onChange={(e) => setAnswers({ ...answers, [currentQuestion]: e.target.value })} placeholder="Capture the operator's response here..." />
                 </motion.div>
               </AnimatePresence>
 
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-2">
-                  <button onClick={prev} className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-slate-50 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60" disabled={currentIndex === 0}><ChevronLeft className="h-4 w-4" />Prev</button>
-                  <button onClick={next} className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-slate-50 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60" disabled={currentIndex === questions.length - 1}>Next<ChevronRight className="h-4 w-4" /></button>
+                  <button onClick={prev} className="ui-button-secondary text-xs inline-flex items-center gap-2" disabled={currentIndex === 0}><ChevronLeft className="h-4 w-4" />Prev</button>
+                  <button onClick={next} className="ui-button-secondary text-xs inline-flex items-center gap-2" disabled={currentIndex === questions.length - 1}>Next<ChevronRight className="h-4 w-4" /></button>
                 </div>
-                <button onClick={saveAnswers} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0">Save answers</button>
+                <button onClick={saveAnswers} className="ui-button text-xs" style={{ paddingLeft: '20px', paddingRight: '20px' }}>Save answers</button>
               </div>
             </div>
           ) : (
             <EmptyState
               title="No questions generated yet"
               description="Select an equipment ID and generate a tailored question set to begin the guided interview workflow."
-              primaryAction={<button onClick={genQuestions} className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0">Generate questions</button>}
-              secondaryAction={<button onClick={() => setEquipment('CRAC-3')} className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-slate-50 active:translate-y-0">Use example asset</button>}
+              primaryAction={<button onClick={genQuestions} className="ui-button text-xs">Generate questions</button>}
+              secondaryAction={<button onClick={() => setEquipment('CRAC-3')} className="ui-button-secondary text-xs">Use example asset</button>}
               illustration="pulse"
             />
           )}
 
-          {saved && <div className="card text-sm text-slate-700">{saved.error ? `Error: ${saved.error}` : `Saved (id: ${saved.document_id || saved.documentId || 'n/a'})`}</div>}
+          {saved && <div className="card text-xs text-zinc-650 bg-zinc-50 border border-zinc-250/50 p-4 leading-normal">{saved.error ? `Error: ${saved.error}` : `Saved (id: ${saved.document_id || saved.documentId || 'n/a'})`}</div>}
         </div>
       </section>
     </div>
@@ -190,3 +203,4 @@ export default function Interview() {
 }
 
 Interview.pageMeta = { title: 'Guided Interview', description: 'Capture tacit knowledge with a stepwise workflow and progress tracking.', breadcrumbs: ['Workspace', 'Interview'] }
+
