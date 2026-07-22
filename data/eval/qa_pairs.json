@@ -1,0 +1,17 @@
+[
+  {"id":1, "question":"Why is CRAC-3 running hot intermittently?", "expected_answer":"Previous incidents show clogged condenser coil causing reduced heat transfer; recommend inspect/clean coil and check condensate drain."},
+  {"id":2, "question":"When was CRAC-1 last inspected?", "expected_answer":"Within the work order history; last completed inspection recorded on 2025-12-15."},
+  {"id":3, "question":"What failure modes are associated with Liebert CRAC units?", "expected_answer":"Short-cycling, clogged coils, refrigerant leaks, compressor faults; refer to OEM alarm codes in manual."},
+  {"id":4, "question":"Which technician resolved incident INC-2024-03?", "expected_answer":"Technician name listed on the work order that closed the incident (e.g., Alex Martinez)."},
+  {"id":5, "question":"Does equipment CH-2 comply with ASHRAE coil-cleaning interval?", "expected_answer":"No — last recorded cleaning exceeds the specified interval (violation)."},
+  {"id":6, "question":"List maintenance tasks required for CRAC units monthly." , "expected_answer":"Inspect filters, check condensate drains, verify fan operation, check refrigerant pressures, clean coils if needed."},
+  {"id":7, "question":"What caused the outage on 2024-11-03?", "expected_answer":"Failure trace indicates compressor trip due to low refrigerant pressure following leak; temporary bypass applied."},
+  {"id":8, "question":"How confident is the system about the diagnosis for CRAC-3?", "expected_answer":"Confidence tier should indicate 'verify' or 'high' depending on direct document citations; expect a confidence tier in response."},
+  {"id":9, "question":"Which compliance rule governs coil cleaning frequency?", "expected_answer":"ASHRAE TC9.9 clause reference included in compliance rules (e.g., clause 'ASHRAE-CC-03')."},
+  {"id":10, "question":"Has a similar failure occurred in the last 12 months for CRAC-3?", "expected_answer":"Yes — previous matching incident found on 2025-04-02 with same symptoms."},
+  {"id":11, "question":"What does alarm code A23 on Liebert mean?", "expected_answer":"Alarm A23 maps to low refrigerant pressure / sensor fault per OEM manual."},
+  {"id":12, "question":"Which documents mention condenser coil maintenance?", "expected_answer":"OEM manual and previous PM reports cite condenser coil maintenance procedures and intervals."},
+  {"id":13, "question":"Give steps to troubleshoot short-cycling on a CRAC unit.", "expected_answer":"Check thermostat/humidistat, verify refrigerant charge, inspect control logic, clean coils, check fan motor and capacitors."},
+  {"id":14, "question":"Is there tacit knowledge recorded for CRAC-2?", "expected_answer":"If no interview nodes exist, answer should state 'no tacit knowledge found' or similar."},
+  {"id":15, "question":"Provide citations for the recommended fix for a clogged coil.", "expected_answer":"Citations should reference the OEM manual and a PM report or incident ticket that documented coil cleaning."}
+]

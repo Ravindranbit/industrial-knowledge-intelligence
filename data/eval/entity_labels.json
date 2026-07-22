@@ -1,0 +1,30 @@
+{
+  "ashrae_tc9.9_guidelines.txt": {
+    "expected_entities": ["ComplianceRule", "interval_days", "requirement_text"],
+    "notes": "Rules about coil cleaning and inspection intervals"
+  },
+  "oem_manual_liebert_ds.txt": {
+    "expected_entities": ["Equipment", "FailureMode", "AlarmCode", "MaintenanceProcedure"],
+    "notes": "OEM alarm codes and maintenance steps"
+  },
+  "chilled_water_piping_diagram.txt": {
+    "expected_entities": ["Equipment", "Pump", "Chiller", "PipeSegment"],
+    "notes": "Topology and equipment names"
+  },
+  "synthetic/ticket_1.txt": {
+    "expected_entities": ["Incident", "Equipment", "Date", "Technician"],
+    "notes": "Short ticket describing CRAC-3 running hot"
+  },
+  "synthetic/ticket_2.txt": {
+    "expected_entities": ["Incident", "Equipment", "FailureMode"],
+    "notes": "Ticket referencing a past failure mode"
+  },
+  "synthetic/pm_report_1.txt": {
+    "expected_entities": ["WorkOrder", "Equipment", "MaintenanceTask", "Date"],
+    "notes": "Preventive maintenance record"
+  },
+  "synthetic/incident_1.txt": {
+    "expected_entities": ["Incident", "Equipment", "FailureMode", "Resolution"],
+    "notes": "Incident with failure mode and resolution details"
+  }
+}
