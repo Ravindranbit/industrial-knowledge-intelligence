@@ -9,10 +9,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import ingest, query, compliance, interview, alerts
+from app.routers import ingest, query, compliance, interview, alerts, dashboard_summary
 from app.graph.driver import get_driver, close_driver
 from app.models.database import init_db
 from app.config import settings
+
 
 
 @asynccontextmanager
@@ -61,6 +62,8 @@ app.include_router(query.router, prefix="/query", tags=["RAG Query"])
 app.include_router(compliance.router, prefix="/compliance", tags=["Compliance"])
 app.include_router(interview.router, prefix="/interview", tags=["Tacit Knowledge"])
 app.include_router(alerts.router, prefix="/alerts", tags=["Proactive Alerts"])
+app.include_router(dashboard_summary.router, prefix="/dashboard-summary", tags=["Dashboard Summary"])
+
 
 
 @app.get("/health")
