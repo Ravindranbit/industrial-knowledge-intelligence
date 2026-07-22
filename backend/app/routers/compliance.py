@@ -17,8 +17,18 @@ async def check_compliance(equipment_id: str, db: Session = Depends(get_db)):
     generate reasoning traces for any gaps via Groq.
     """
     result = evaluate_compliance(equipment_id, db)
+    evaluations_mapped = [
+        {
+            "passed": not ev["is_gap"],
+            "rule": ev["rule"]["clause_ref"],
+            "summary": ev["rule"]["description"],
+            "reasoning": ev["reasoning_trace"]
+        }
+        for ev in result["evaluations"]
+    ]
     return {
         "status": "success",
         "equipment_id": result["equipment_id"],
-        "evaluations": result["evaluations"]
+        "evaluations": evaluations_mapped
     }
+
