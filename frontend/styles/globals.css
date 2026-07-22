@@ -5,13 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg: #FAF9F6;
-  --card: #FFFFFF;
-  --primary: #1C1917; /* Stone 900 */
-  --secondary: #44403C; /* Stone 700 */
-  --accent: #C2410C; /* Terracotta/Warm Amber */
-  --ring: rgba(28, 25, 23, 0.06);
-  --border: #EAE6DF;
+  --bg: #F9FAFB;
+  --card: rgba(255, 255, 255, 0.8);
+  --primary: #09090B;
+  --secondary: #52525B;
+  --accent: #4F46E5; /* Indigo */
+  --accent-teal: #0D9488; /* Teal */
+  --border: rgba(9, 9, 11, 0.06);
+  --ring: rgba(79, 70, 229, 0.15);
 }
 
 @layer base {
@@ -22,57 +23,63 @@
     scroll-behavior: smooth;
   }
   body {
-    background: linear-gradient(180deg, #FAF9F6 0%, #F5F2EB 100%);
+    background: #F9FAFB;
+    background-image: 
+      radial-gradient(at 50% 0%, #e0e7ff 0px, transparent 65%),
+      radial-gradient(at 0% 0%, #fef3c7 0px, transparent 50%),
+      radial-gradient(at 100% 100%, #f3f4f6 0px, transparent 50%);
     font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
-    color: #1C1917;
+    color: #27272A;
     text-rendering: optimizeLegibility;
   }
   a {
-    color: var(--accent);
+    color: #4F46E5;
     text-decoration-line: none;
     transition: color 0.15s ease;
   }
   a:hover {
-    color: var(--primary);
+    color: #0D9488;
   }
   :focus-visible {
     outline: none;
     box-shadow: 0 0 0 4px var(--ring);
   }
   ::selection {
-    background: #EADFCB;
-    color: #1C1917;
+    background: #C7D2FE;
+    color: #4F46E5;
   }
   h1, h2, h3, h4 {
     letter-spacing: -0.03em;
     font-weight: 600;
+    color: #09090B;
   }
 }
 
 .card {
-  @apply bg-white rounded-3xl border border-slate-200/60 p-6 shadow-[0_2px_4px_rgba(28,25,23,0.02),0_12px_32px_rgba(28,25,23,0.03)] transition duration-300 ease-out;
+  @apply bg-white/85 backdrop-blur-md rounded-3xl border border-zinc-200/80 p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition duration-300 ease-out;
 }
 .card:hover {
-  @apply shadow-[0_8px_32px_rgba(28,25,23,0.06)] -translate-y-0.5 border-slate-300/60;
+  @apply shadow-[0_12px_32px_rgba(0,0,0,0.05)] -translate-y-0.5 border-zinc-300/80;
 }
 .card:focus-within {
-  @apply border-stone-400 shadow-[0_8px_32px_rgba(28,25,23,0.06)];
+  @apply border-pastel-500/50 shadow-[0_12px_24px_rgba(63,162,113,0.04)];
 }
 
 @layer components {
   .ui-input {
-    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-stone-400 focus:ring-4 focus:ring-stone-100;
+    @apply w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-900 transition placeholder:text-zinc-400 focus:border-pastel-500/50 focus:ring-4 focus:ring-pastel-500/10 outline-none;
   }
   .ui-button {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 px-4 py-3 text-sm font-semibold text-white shadow-md transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-stone-800 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-pastel-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-pastel-600/15 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-pastel-500 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60;
   }
   .ui-button-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 active:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-semibold text-zinc-700 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-100/85 active:translate-y-0;
   }
   .ui-label {
-    @apply text-sm font-semibold text-slate-700;
+    @apply text-sm font-semibold text-zinc-700;
   }
   .ui-helper {
-    @apply text-sm leading-6 text-slate-500;
+    @apply text-sm leading-6 text-zinc-500;
   }
 }
+
