@@ -49,7 +49,7 @@ def _write_entities_to_graph(extraction_result: dict):
         for inc in entities.get("incidents", []):
             session.execute_write(
                 graph_write.create_incident,
-                incident_id=inc["incident_id"],
+                incident_id=inc.get("incident_id", f"inc-{hash(inc.get('description', ''))}"),
                 date=inc.get("date", ""),
                 description=inc.get("description", ""),
                 severity=inc.get("severity", ""),
@@ -59,7 +59,7 @@ def _write_entities_to_graph(extraction_result: dict):
         for wo in entities.get("work_orders", []):
             session.execute_write(
                 graph_write.create_work_order,
-                order_id=wo["order_id"],
+                order_id=wo.get("order_id", f"wo-{hash(wo.get('description', ''))}"),
                 wo_type=wo.get("type", ""),
                 completed_date=wo.get("completed_date", ""),
                 description=wo.get("description", ""),
