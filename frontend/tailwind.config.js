@@ -23,6 +23,19 @@ module.exports = {
           900: '#1C1917',
           950: '#0C0A09'
         },
+        pastel: {
+          50: '#F4FAF7',
+          100: '#E6F4EE',
+          200: '#CBE8DB',
+          300: '#A3D7C0',
+          400: '#75C29F',
+          500: '#52B383',   // soft sage green
+          600: '#3FA271',   // primary brand pastel button green
+          700: '#32865C',   // hover button state
+          800: '#276948',
+          900: '#1B4D34',
+          950: '#0D2B1C'
+        },
         slate: {
           50: '#FAF8F5',   // soft cream page background
           100: '#F3EFE9',  // light warm gray container bg
