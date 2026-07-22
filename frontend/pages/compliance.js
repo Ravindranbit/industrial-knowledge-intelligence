@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { AlertTriangle, CheckCircle2, Shield, TrendingUp, Activity, Clock3, Search } from 'lucide-react'
 import { EmptyState, SectionHeader, StatCard, StatusPill, Timeline, SkeletonList } from '../components/enterprise-ui'
 
@@ -68,7 +69,7 @@ export default function Compliance() {
 
   return (
     <div className="space-y-6">
-      <section className="card grid gap-6 xl:grid-cols-[1.1fr_0.9fr] xl:items-center">
+      <section className="card grid gap-6 xl:grid-cols-[0.8fr_2.2fr] xl:items-center">
         <div>
           <SectionHeader
             eyebrow="Monitoring"
@@ -139,7 +140,16 @@ export default function Compliance() {
                 <StatCard label="Risk level" value={failCount > 0 ? 'Elevated' : 'Low'} delta={failCount > 2 ? 'Escalate' : 'Monitor'} hint="Based on open findings" tone={failCount > 0 ? 'amber' : 'green'} updated="Updated now" trend={{label: failCount > 0 ? 'Watch' : 'Low', direction: failCount > 0 ? 'down' : 'flat'}} recentActivity="Monitoring continues" />
               </div>
               <div className="grid gap-4">
-                {result.evaluations.map((ev, i) => <RuleRow key={i} ev={ev} />)}
+                {result.evaluations.map((ev, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.08 }}
+                  >
+                    <RuleRow ev={ev} />
+                  </motion.div>
+                ))}
               </div>
             </div>
           )}

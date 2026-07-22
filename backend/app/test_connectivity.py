@@ -20,18 +20,18 @@ def test_neo4j():
 
         driver = get_driver()
         driver.verify_connectivity()
-        print("✓ Neo4j: Connection successful")
+        print("[OK] Neo4j: Connection successful")
 
         with driver.session() as session:
             result = session.run("RETURN 1 AS test")
             value = result.single()["test"]
             assert value == 1
-            print("✓ Neo4j: Query execution successful")
+            print("[OK] Neo4j: Query execution successful")
 
         close_driver()
         return True
     except Exception as e:
-        print(f"✗ Neo4j: Connection failed — {e}")
+        print(f"[FAIL] Neo4j: Connection failed - {e}")
         return False
 
 
@@ -42,13 +42,13 @@ def test_config():
 
         assert settings.NEO4J_URI, "NEO4J_URI is empty"
         assert settings.NEO4J_PASSWORD, "NEO4J_PASSWORD is empty"
-        print(f"✓ Config: Loaded successfully")
+        print(f"[OK] Config: Loaded successfully")
         print(f"  NEO4J_URI = {settings.NEO4J_URI[:30]}...")
         print(f"  POSTGRES_URL = {settings.POSTGRES_URL[:30]}...")
         print(f"  GROQ_API_KEY = {'set' if settings.GROQ_API_KEY else 'NOT SET'}")
         return True
     except Exception as e:
-        print(f"✗ Config: Failed to load — {e}")
+        print(f"[FAIL] Config: Failed to load - {e}")
         return False
 
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     print()
     print("=" * 50)
     if config_ok and neo4j_ok:
-        print("All checks passed ✓")
+        print("All checks passed [OK]")
     else:
-        print("Some checks failed — see above")
+        print("Some checks failed - see above")
     print("=" * 50)

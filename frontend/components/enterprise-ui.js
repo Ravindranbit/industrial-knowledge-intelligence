@@ -16,7 +16,7 @@ export function StatCard({ label, value, delta, hint, tone = 'blue', updated, tr
   }
 
   return (
-    <div className={`card group relative overflow-hidden bg-gradient-to-br ${toneClasses[tone]} min-h-[176px]`}>
+    <div className={`card group relative overflow-hidden bg-gradient-to-br ${toneClasses[tone]} min-h-[145px] py-4 px-5`}>
       <div className="flex h-full flex-col justify-between gap-5">
         <div>
           <div className="flex items-start justify-between gap-4">
@@ -29,13 +29,13 @@ export function StatCard({ label, value, delta, hint, tone = 'blue', updated, tr
           {hint && <div className="mt-3 text-sm leading-6 text-slate-500">{hint}</div>}
         </div>
 
-        <div className="space-y-3 border-t border-white/60 pt-4">
-          <div className="flex items-center justify-between gap-3 text-xs font-medium text-slate-500">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-slate-700 shadow-sm">{delta || 'Live metric'}</span>
-            {trend && <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 ${trendTone[trend.direction || 'flat'] || trendTone.flat}`}><ArrowUpRight className="h-3.5 w-3.5" />{trend.label}</span>}
+        <div className="space-y-3 border-t border-slate-200/40 pt-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-medium text-slate-500">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2 py-0.5 text-slate-700 shadow-sm">{delta || 'Live metric'}</span>
+            {trend && <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 ${trendTone[trend.direction || 'flat'] || trendTone.flat}`}><ArrowUpRight className="h-3 w-3" />{trend.label}</span>}
           </div>
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            {updated ? <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{updated}</span> : <span>Updated recently</span>}
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+            {updated ? <span className="inline-flex items-center gap-1"><Clock3 className="h-3 w-3" />{updated}</span> : <span>Updated recently</span>}
             {recentActivity && <span className="font-medium text-slate-600">{recentActivity}</span>}
           </div>
         </div>
@@ -48,7 +48,7 @@ export function SectionHeader({ eyebrow, title, description, action }) {
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
-        {eyebrow && <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700"><Sparkles className="h-3.5 w-3.5" />{eyebrow}</div>}
+        {eyebrow && <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700"><span className="h-1.5 w-1.5 rounded-full bg-blue-500" />{eyebrow}</div>}
         <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 md:text-[2rem]">{title}</h2>
         {description && <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 md:text-[15px]">{description}</p>}
       </div>

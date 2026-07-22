@@ -2,34 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --bg: #F8FAFC;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #FAF9F6;
   --card: #FFFFFF;
-  --primary: #2563EB;
-  --secondary: #1E40AF;
-  --accent: #0EA5E9;
-  --ring: rgba(37, 99, 235, 0.18);
+  --primary: #1C1917; /* Stone 900 */
+  --secondary: #44403C; /* Stone 700 */
+  --accent: #C2410C; /* Terracotta/Warm Amber */
+  --ring: rgba(28, 25, 23, 0.06);
+  --border: #EAE6DF;
 }
 
 @layer base {
-  html,body,#__next{height:100%}
-  html{scroll-behavior:smooth}
-  body{background:linear-gradient(180deg,#f8fafc 0%,#f7faff 100%);font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#0f172a;text-rendering:optimizeLegibility}
-  a{color:var(--primary)}
-  :focus-visible{outline:none;box-shadow:0 0 0 4px var(--ring)}
-  ::selection{background:#dbeafe;color:#0f172a}
-  h1,h2,h3,h4{letter-spacing:-0.02em}
+  html, body, #__next {
+    height: 100%;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: linear-gradient(180deg, #FAF9F6 0%, #F5F2EB 100%);
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    color: #1C1917;
+    text-rendering: optimizeLegibility;
+  }
+  a {
+    color: var(--accent);
+    text-decoration-line: none;
+    transition: color 0.15s ease;
+  }
+  a:hover {
+    color: var(--primary);
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--ring);
+  }
+  ::selection {
+    background: #EADFCB;
+    color: #1C1917;
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
 }
 
-.card{@apply bg-white rounded-3xl border border-slate-200/80 p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_24px_rgba(15,23,42,0.04)] transition duration-200 ease-out}
-.card:hover{@apply shadow-[0_8px_24px_rgba(15,23,42,0.08)] -translate-y-0.5 border-slate-300/70}
-.card:focus-within{@apply border-blue-200 shadow-[0_8px_24px_rgba(37,99,235,0.08)]}
+.card {
+  @apply bg-white rounded-3xl border border-slate-200/60 p-6 shadow-[0_2px_4px_rgba(28,25,23,0.02),0_12px_32px_rgba(28,25,23,0.03)] transition duration-300 ease-out;
+}
+.card:hover {
+  @apply shadow-[0_8px_32px_rgba(28,25,23,0.06)] -translate-y-0.5 border-slate-300/60;
+}
+.card:focus-within {
+  @apply border-stone-400 shadow-[0_8px_32px_rgba(28,25,23,0.06)];
+}
 
 @layer components {
-  .ui-input{@apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-blue-300 focus:ring-4 focus:ring-blue-100}
-  .ui-button{@apply inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60}
-  .ui-button-secondary{@apply inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 active:translate-y-0}
-  .ui-label{@apply text-sm font-semibold text-slate-700}
-  .ui-helper{@apply text-sm leading-6 text-slate-500}
+  .ui-input {
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-stone-400 focus:ring-4 focus:ring-stone-100;
+  }
+  .ui-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-stone-900 px-4 py-3 text-sm font-semibold text-white shadow-md transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-stone-800 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .ui-button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 active:translate-y-0;
+  }
+  .ui-label {
+    @apply text-sm font-semibold text-slate-700;
+  }
+  .ui-helper {
+    @apply text-sm leading-6 text-slate-500;
+  }
 }
-

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Send, Sparkles, BookOpen, ShieldCheck, FileText, Clock3 } from 'lucide-react'
+import { Send, BookOpen, ShieldCheck, FileText, Clock3 } from 'lucide-react'
 import { EmptyState, PromptPills, SectionHeader, StatusPill, SkeletonCard } from '../components/enterprise-ui'
 
 const suggestedPrompts = [
@@ -129,7 +129,11 @@ export default function Chat() {
 
             {loading && (
               <div className="flex justify-start">
-                <div className="w-full max-w-[85%]"><SkeletonCard /></div>
+                <div className="max-w-[85%] rounded-3xl px-5 py-3.5 border border-slate-200 bg-white text-slate-800 shadow-sm flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-slate-450" style={{ animationDelay: '0ms' }} />
+                  <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-slate-450" style={{ animationDelay: '150ms' }} />
+                  <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-slate-450" style={{ animationDelay: '300ms' }} />
+                </div>
               </div>
             )}
           </div>

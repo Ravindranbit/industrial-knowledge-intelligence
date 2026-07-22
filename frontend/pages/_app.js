@@ -40,15 +40,14 @@ function Layout({ children, meta }) {
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <div className="flex min-h-screen">
         <aside className="hidden w-72 flex-col border-r border-slate-200 bg-white/90 px-4 py-5 backdrop-blur xl:flex">
-          <div className="mb-6 rounded-2xl bg-slate-950 px-4 py-4 text-white shadow-lg shadow-slate-900/10">
+          <div className="mb-6 rounded-2xl bg-white border border-slate-200 px-4 py-4 text-slate-900 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-lg font-bold">IK</div>
               <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Industrial Knowledge</div>
+                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Industrial Knowledge</div>
                 <div className="text-lg font-semibold">Enterprise AI Suite</div>
               </div>
             </div>
-            <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-slate-200">
+            <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm text-slate-600">
               Connected to ingestion, compliance, interview, alerts, and chat workflows.
             </div>
           </div>
@@ -75,7 +74,6 @@ function Layout({ children, meta }) {
           <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
             <div className="flex flex-col gap-4 px-4 py-4 xl:px-8">
               <div className="flex items-center gap-3 xl:hidden">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white">IK</div>
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Industrial Knowledge</div>
                   <div className="text-base font-semibold text-slate-900">Enterprise AI Suite</div>

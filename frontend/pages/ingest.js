@@ -59,7 +59,7 @@ export default function Ingest() {
 
   return (
     <div className="space-y-6">
-      <section className="card grid gap-6 xl:grid-cols-[1.1fr_0.9fr] xl:items-end">
+      <section className="card grid gap-6 xl:grid-cols-[0.8fr_2.2fr] xl:items-end">
         <div>
           <SectionHeader
             eyebrow="Document intake"
@@ -151,7 +151,7 @@ export default function Ingest() {
           </div>
 
           <div className="card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><Sparkles className="h-4 w-4 text-blue-600" />Recommended next steps</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><CheckCircle2 className="h-4 w-4 text-blue-600" />Recommended next steps</div>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
               <div className="rounded-2xl bg-slate-50 p-4">Review extracted metadata for accuracy.</div>
               <div className="rounded-2xl bg-slate-50 p-4">Ask the copilot to summarize the new content.</div>

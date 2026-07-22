@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { CheckCircle2, ChevronLeft, ChevronRight, ClipboardList, FileText, Users, Lightbulb, Search } from 'lucide-react'
 import { EmptyState, PromptPills, SectionHeader, StatCard, StatusPill, Timeline } from '../components/enterprise-ui'
 
@@ -65,7 +66,7 @@ export default function Interview() {
 
   return (
     <div className="space-y-6">
-      <section className="card grid gap-6 xl:grid-cols-[1.1fr_0.9fr] xl:items-center">
+      <section className="card grid gap-6 xl:grid-cols-[0.8fr_2.2fr] xl:items-center">
         <div>
           <SectionHeader
             eyebrow="Workflow"
@@ -88,16 +89,18 @@ export default function Interview() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid gap-3 sm:grid-cols-3">
           <StatCard label="Questions captured" value={questions.length || 0} delta={questions.length ? 'Workflow ready' : 'Awaiting generation'} hint="Use the guided flow to capture tacit knowledge" tone="violet" />
           <StatCard label="Completion progress" value={`${progress}%`} delta={loading ? 'Updating' : 'Tracking answers'} hint="Current question completion" tone="blue" />
-          <div className="card">
-            <div className="text-sm font-semibold text-slate-900">Interview tips</div>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600">
-              <li>• Ask for examples, not just yes/no answers.</li>
-              <li>• Capture the “why” behind each maintenance action.</li>
-              <li>• Save the session before moving to the next site lead.</li>
-            </ul>
+          <div className="card flex flex-col justify-between py-4 px-5">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Interview tips</div>
+              <ul className="mt-3 space-y-1.5 text-xs text-slate-600">
+                <li>• Ask for examples, not yes/no.</li>
+                <li>• Capture the “why” behind actions.</li>
+                <li>• Save before moving to next lead.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -142,15 +145,24 @@ export default function Interview() {
                 </div>
               </div>
 
-              <div className="rounded-3xl bg-slate-50 p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><ClipboardList className="h-4 w-4 text-blue-600" />Current question</div>
-                    <div className="mt-3 text-xl font-semibold leading-8 text-slate-900">{currentQuestion}</div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.2 }}
+                  className="rounded-3xl bg-slate-50 p-5"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><ClipboardList className="h-4 w-4 text-blue-600" />Current question</div>
+                      <div className="mt-3 text-xl font-semibold leading-8 text-slate-900">{currentQuestion}</div>
+                    </div>
                   </div>
-                </div>
-                <textarea rows={7} className="mt-4 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" value={answers[currentQuestion] || ''} onChange={(e) => setAnswers({ ...answers, [currentQuestion]: e.target.value })} placeholder="Capture the operator's response here..." />
-              </div>
+                  <textarea rows={7} className="mt-4 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100" value={answers[currentQuestion] || ''} onChange={(e) => setAnswers({ ...answers, [currentQuestion]: e.target.value })} placeholder="Capture the operator's response here..." />
+                </motion.div>
+              </AnimatePresence>
 
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-2">

@@ -18,21 +18,21 @@ const quickActions = [
 export default function Home() {
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-6 text-white shadow-xl shadow-slate-900/10 xl:p-8">
+      <section className="rounded-3xl border border-stone-850 bg-[#1C1917] p-6 text-white shadow-xl shadow-stone-950/15 xl:p-8">
         <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr] xl:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200">
-              <Sparkles className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-stone-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
               Enterprise AI Operations
             </div>
             <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight xl:text-4xl">
               Keep engineering, operations, and compliance in one guided workspace.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-300">
               Review the current posture, upload new knowledge, ask the copilot for grounded answers, and move directly into the next best action.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/ingest" className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-white/10 transition hover:-translate-y-0.5">
+              <Link href="/ingest" className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-stone-900 shadow-md transition hover:-translate-y-0.5">
                 <Plus className="h-4 w-4" />
                 Start an intake
               </Link>
