@@ -1,4 +1,4 @@
-Frontend (Person C) — Minimal Next.js scaffold
+Frontend (Person C) — Enterprise Next.js dashboard
 
 Run locally:
 
@@ -9,5 +9,6 @@ npm run dev
 ```
 
 Notes:
-- The pages include simple proxy fetches to `/api/proxy-*` endpoints to avoid CORS during early dev. You can implement a Next.js API proxy or change fetch targets to the backend URL (e.g., http://localhost:8000/query).
-- Build UI incrementally: start with basic flows and wire to backend endpoints once available.
+- The app provides an enterprise-style workspace shell, AI chat, compliance monitoring, guided interview flow, document intake, and alerts.
+- Frontend requests are proxied through Next.js API routes under `/api/proxy-*` so the backend contract stays unchanged.
+- The UI is optimized for production polish: cards, contextual metadata, better empty states, and subtle motion.

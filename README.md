@@ -57,7 +57,7 @@ Every time a new document is ingested, the system pattern-matches against histor
 | **Graph DB** | Neo4j AuraDB | Stores equipment, failure modes, incidents, work orders, compliance rules as a connected graph |
 | **Vector DB** | Postgres + pgvector | Stores document chunks and embeddings for similarity search |
 | **LLM** | Claude API (Anthropic) | Entity extraction, RAG answer generation, compliance reasoning, interview question generation |
-| **Frontend** | Next.js | Chat, compliance dashboard, tacit knowledge interview, proactive alert feed |
+| **Frontend** | Next.js 14 | Enterprise dashboard, AI chat, compliance monitoring, interview workflow, document intake, alert center |
 
 ---
 
@@ -199,7 +199,17 @@ uvicorn app.main:app --reload --port 8000
 
 The API will be available at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
 
-### 6. Verify Connectivity
+### 6. Run the Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend runs at `http://localhost:3000` and proxies API calls to the backend through local Next.js routes.
+
+### 7. Verify Connectivity
 
 Test that all external services are reachable:
 
@@ -257,7 +267,7 @@ python app/test_connectivity.py
 | ORM | SQLAlchemy | 2.0.41 |
 | LLM | Anthropic Claude API | 0.52.0 |
 | Embeddings | sentence-transformers | 4.1.0 |
-| Frontend | Next.js | TBD |
+| Frontend | Next.js 14 + Tailwind CSS + Lucide + Framer Motion | Enterprise dashboard UI |
 
 ---
 
