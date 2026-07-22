@@ -16,6 +16,7 @@ from app.services.extraction import extract_entities, chunk_text
 from app.services.embedding import embed_texts
 from app.graph.driver import get_session as get_neo4j_session
 from app.graph import write as graph_write
+from app.services.pattern_match import check_for_patterns
 
 router = APIRouter()
 
@@ -190,6 +191,18 @@ async def ingest_document(
         # Don't fail the whole request if Neo4j is down
         graph_status = f"failed: {str(e)}"
 
+    # --- 6. Proactive Pattern Match ---
+    # Trigger pattern matching for each extracted equipment
+    pattern_results = []
+    summary = extraction_result.get("document_summary", "")
+    for eq in extraction_result.get("entities", {}).get("equipment", []):
+        eq_name = eq.get("name")
+        if eq_name and summary:
+            # Send to background or run synchronously. For simplicity, run sync.
+            res = check_for_patterns(eq_name, summary)
+            if res.get("status") == "match_found":
+                pattern_results.append(res["alert"])
+    
     # --- Build response ---
     entity_counts = {
         k: len(v) for k, v in extraction_result.get("entities", {}).items()
@@ -205,7 +218,8 @@ async def ingest_document(
         "entities_extracted": entity_counts,
         "relationships_extracted": relationship_count,
         "graph_status": graph_status,
-        "summary": extraction_result.get("document_summary", ""),
+        "summary": summary,
+        "alerts_generated": len(pattern_results)
     }
 
 
