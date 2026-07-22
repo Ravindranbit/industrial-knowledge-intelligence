@@ -15,7 +15,16 @@ async def get_alerts():
     new incidents against existing failure modes in the graph.
     """
     alerts = get_recent_alerts()
+    mapped_alerts = []
+    for a in alerts:
+        mapped_alerts.append({
+            "title": f"Recurring Issue: {a.get('equipment_id')}",
+            "timestamp": "Just now",
+            "summary": a.get("message"),
+            "severity": "critical"
+        })
     return {
         "status": "success",
-        "alerts": alerts
+        "alerts": mapped_alerts
     }
+
