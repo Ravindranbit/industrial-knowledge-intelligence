@@ -1,0 +1,7 @@
+Report ID: PM-4011
+Date: 2026-07-01
+Equipment ID: CRAC-3
+Task: Quarterly Coil Cleaning & Filter Check
+Findings: Evaporator coil found to have moderate dust buildup. Air filters (MERV 8) were heavily loaded. Belt tension was within spec.
+Action Taken: Vacuumed and chemically cleaned evaporator coil. Replaced 4x air filters. Greased blower motor bearings.
+Next Scheduled PM: 2026-10-01

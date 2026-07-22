@@ -1,0 +1,6 @@
+Ticket ID: TKT-9042
+Date: 2026-07-20
+Equipment ID: CRAC-3
+Reported Symptom: Short-cycling and high humidity alarm
+Technician Notes: Found unit short-cycling on low pressure switch. Checked refrigerant levels and found them slightly undercharged. Also noted that the condenser coil was heavily clogged with dust, exacerbating the issue. Cleaned condenser coil and added 2lbs of R-410A. Reset alarms and verified proper operation. Will need to monitor for leaks.
+Status: Closed

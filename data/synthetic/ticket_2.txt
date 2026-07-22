@@ -1,0 +1,6 @@
+Ticket ID: TKT-9055
+Date: 2026-07-15
+Equipment ID: CRAC-1
+Reported Symptom: Running hot, supply temp at 78F
+Technician Notes: Investigated high supply temp. Found chilled water valve stuck at 20% open. Actuator is receiving 10VDC signal but mechanically binding. Manually opened valve to 80% to restore cooling. Ordered replacement actuator (Part #ACT-442).
+Status: Closed

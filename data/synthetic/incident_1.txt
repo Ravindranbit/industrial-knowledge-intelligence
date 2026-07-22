@@ -1,0 +1,7 @@
+Incident ID: INC-2026-06-15-A
+Date & Time: 2026-06-15 14:30:00
+Equipment Involved: CRAC-3
+Impact: Server rack intake temp spiked to 85F in Zone B. Redundant CRAC-4 engaged automatically.
+Root Cause: CRAC-3 tripped off on high head pressure. Condenser fan contactor failed closed, causing the motor to burn out.
+Resolution: Replaced condenser fan motor and contactor. Verified operation of CRAC-3 and placed back in primary rotation.
+Follow-up Required: Inspect all contactors on units >5 years old during next PM cycle.
